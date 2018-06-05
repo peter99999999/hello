@@ -1,0 +1,79 @@
+
+<!-- var ifrm = document.getElementById('myFrame');
+ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+ifrm.document.open();
+ifrm.document.write('Hello World!');
+ifrm.document.close();
+ -->
+<html>
+<head>
+  <script src="./js/jquery-3.1.1.js"></script>
+  <link rel="stylesheet" href="./css/bootstrap.css"/>
+  <script src="./js/bootstrap.js"></script>
+  <style>
+         
+        .logo{
+        width: 100%;
+        //height: 200px;
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 10px;
+        
+        
+      }
+      
+      
+      .title
+      {
+        //font-size: 30px;
+        border-bottom: 1px solid #eeeeee;
+                color: #b1b1b1;
+                margin-bottom: 50px;
+                
+      }
+      .title span
+      {
+        top:10px;
+        position: relative;
+        background-color:white;
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .input-group
+      {
+        margin-bottom: 20px;
+      }
+        
+       
+        </style>
+</head>
+<body>
+	<div class="container">  
+    <div class="alert alert-primary" role="alert">
+  This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>
+      
+          <form role="form">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+          <input type="text" class="form-control" placeholder="你的手机号码">
+        </div>
+        
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+          
+          <input type="text" class="form-control" placeholder="你的昵称">
+        </div>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+          <input type="password" class="form-control" placeholder="你的密码">
+        </div>
+        <div class="input-group input-group-lg">
+           <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+          <input type="password" class="form-control" placeholder="确认你的密码">
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="register_submit">注册</button>
+      </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,188 @@
+var isEletronApp=true;
+//var isEletronApp=false;
+if(isEletronApp)
+{
+    target='electron-renderer';
+}
+else
+{
+    target='web';
+}
+var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path');
+const buildPath = path.resolve(__dirname, 'static/output/');
+const my_publicPath = path.resolve(__dirname, '/md/');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+// var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+//var autoprefixer = require('autoprefixer');
+module.exports = {
+    //插件项
+    // plugins: [commonsPlugin],
+    //页面入口文件配置
+     //target: 'electron-renderer',
+     target: target,
+     //target: 'node',
+     mode:"development",
+    entry: {
+        index : './src/js/index.js'
+    },
+    //入口文件输出配置
+    output: {
+        path: buildPath,//'docs/js/',
+        publicPath:'output/',//my_publicPath,
+        filename: '[name].js'
+    },
+    //devtool: 'inline-source-map',
+    devtool: 'hidden-source-map',
+    resolve:{
+        alias: {
+           // 'jquery': "./src/js/jquery-3.1.1.js" 
+           'jquery': path.resolve(__dirname, 'src/js/jquery-3.1.1.js')
+        }
+    },  
+    module: {
+        //加载器配置
+        rules: [
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+           // { test: /\.less$/, loader: 'style-loader!css-loader!less-loader?sourceMap'},
+            {
+            test: /\.less$/,
+            use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "less-loader" // compiles Less to CSS
+            }]
+            },
+            {test: /\.scss$/,loader:"style-loader!css-loader!postcss-loader!sass-loader"},
+          /* 
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader", "postcss-loader","sass-loader"]
+            },
+           */
+            { test: /\.js$/, loader: 'jsx-loader?harmony' },
+            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+             {                                                                              
+              test: /\.js$/,                                                                                
+              loader: ['babel-loader'],  
+              exclude: [nodeModulesPath],                                                                                                                                                                                                              
+            }   
+        ]
+    },
+    /*target: 'node',*/
+    plugins: [
+        new CopyWebpackPlugin([
+           /* { //gary add
+                context: path.join(__dirname, './src/css'),
+                from: '*.css', 
+                to: '../css',
+                force: true
+            },*/
+            
+            { 
+                context: path.join(__dirname, './src/css/pageThemes'),
+                from: '*', 
+                to: '../pageThemes',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src/css/cssThemes'),
+                from: '*', 
+                to: '../cssThemes',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src/css/'),
+                from: 'output_wrapper*.css', 
+                to: '../css',
+                force: true
+            },
+             { 
+                context: path.join(__dirname, './src/css/'),
+                from: 'file_export_setting.css', 
+                to: '../css',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src/imgs'),
+                from: '*', 
+                to: '../imgs',
+                force: true
+            },
+           /* { 
+                context: path.join(__dirname, './src/css/themes'),
+                from: '*', 
+                to: '../themes',
+                force: true
+            },*/
+            { 
+                context: path.join(__dirname, './src'),
+                from: "index.html",
+                to: '../index.html', 
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src'),
+                from: 'index.html', 
+                to: '../md',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src'),
+                from: "demo*.md",
+                to: '../',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src'),
+                from: "export.html",
+                to: '../',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src'),
+                from: "favicon.ico",
+                to: '../favicon.ico',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src'),
+                from: "CNAME",
+                to: '../CNAME',
+                toType: 'file',
+                force: true
+            },
+             { 
+                context: path.join(__dirname, './src/css/highlight'),
+                from: '*', 
+                to: '../highlight',
+                force: true
+            },
+             
+        ]),
+        new webpack.DefinePlugin({
+            ELECTRON_APP:isEletronApp,
+          })
+       
+      // Minify the bundle
+       /*new webpack.optimize.UglifyJsPlugin({
+       // new config.optimization.minimize({
+          compress: {
+            // suppresses warnings, usually from module minification
+            warnings: false,
+          },
+        }),*/
+        //require('autoprefixer')
+    ],
+   /* node: {
+       fs: "empty",
+     }*/
+     /*node: {
+    __dirname: false,
+    __filename: false
+  },*/
+    //postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
+};

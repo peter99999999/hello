@@ -1,0 +1,28 @@
+//var proxy = require('html2canvas-proxy');
+var express = require('express');
+
+var app = express();
+//app.use('/', proxy());
+app.use(express.static('static'));
+app.get('/', function (req, res) {
+   //res.send('Hello World');
+ 
+   res.sendFile( __dirname + "/md/" + "index.html" );
+})
+
+/*
+app.get('/img', function (req, res) {
+   //res.send('Hello World');
+   console.log("in img proxy");
+   proxy();
+})
+*/
+ 
+var server = app.listen(8081, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+ 
+})

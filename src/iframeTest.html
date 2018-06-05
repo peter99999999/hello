@@ -1,0 +1,178 @@
+
+<!-- var ifrm = document.getElementById('myFrame');
+ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+ifrm.document.open();
+ifrm.document.write('Hello World!');
+ifrm.document.close();
+ -->
+<html>
+<head>
+  <script src="./js/jquery-3.1.1.js"></script>
+  <link rel="stylesheet" href="./css/highlight/agate.css"/>
+   <link rel="stylesheet" href="./css/katex/katex.css"/>
+  <link rel="stylesheet" href="./css/highlight/androidstudio.css"/>
+   <style type="text/css" id="sytle_1">
+   
+  </style>
+
+  <style type="text/css" id="sytle_2">
+    
+    blockquote {
+  display: block !important;
+  padding: 15px 1rem;
+  font-size: 14px;
+  padding-right: 15px;
+  margin-left: 0;
+  color: #819198;
+  border-left: 6px solid #dce6f0;
+  background: #f2f7fb;
+  overflow: auto !important;
+  overflow-scrolling: touch;
+  word-wrap: normal !important;
+  word-break: normal !important;  
+  white-space: pre !important; 
+  
+
+}
+
+  </style>
+</head>
+<body>
+	<a href="#001">跳到001</a> 
+  <blockquote><p style="line-height: inherit; font-size: inherit; color: inherit; margin: 0px;">微信公众号：颜家大少<br>本文所用排版工具：<a href="http://md.aclickall.com" style="line-height: inherit; font-size: inherit; color: rgb(30, 107, 184); word-break: break-all;">http://md.aclickall.com</a></p></blockquote>
+<input id="inputpaste">please input:</input>
+<button id="triggerCopy">copy</button>
+<button id="triggerPaste">paste</button>
+<div name="insertTest">
+  <p class="pStyle">insertest</p>
+</div>
+<div id="myedit">
+</div>
+<a name="001"  > testjump </a>
+<div style="width:100%;height:1000px"></div>
+<!-- <iframe id="testIframe"></iframe> -->
+<script type="text/javascript">
+$().ready(function(){
+
+/*
+        $('#triggerPaste').click(pastTest );
+
+		 function pastTest() {
+		 if (document.selection && document.selection.createRange) {
+		   var myRange = document.selection.createRange();
+		   var m = myRange.pasteHTML('<iframe width=100 height=100 src="http://localhost/t2.htm"></iframe>');
+		 }
+		 else if (window.getSelection) {
+		   var selection = window.getSelection();
+		   var range = window.getSelection().getRangeAt(0);
+		   range.deleteContents();
+		   var newP = document.createElement('iframe');
+		   newP.src="http://localhost/t2.htm";
+		   newP.width="100";
+		   newP.height="100";
+		   range.insertNode(newP);
+		 }
+		}
+*/
+ /*var styleSheets  = document.styleSheets;
+
+ for(var i=0;i<styleSheets.length;i++){
+          var styleString = $.map(styleSheets[i].rules, function(rule) {
+              return 'cssText' in rule ? rule.cssText : '';
+           }).join("\n");
+          window.prompt("Copy to clipboard: Ctrl+C, Enter", styleString);
+ };*/
+         /* var styles = document.styleSheets[0].href;
+$.get(styles, function(data) {
+  console.log(data); // call the clipboard copy function on data here
+});*/
+
+var iframe=document.createElement("iframe");  
+                iframe.id="te";  
+                iframe.width="98%";  
+                iframe.height="95%";  
+                iframe.color="red";  
+                iframe.background="black";   
+                iframe.src="export.html";        
+                  
+                document.getElementById("myedit").appendChild(iframe);  
+                
+  var myBody=$('#te');
+  
+  var ifrm = document.getElementById("te");
+  var doc = ifrm.contentDocument || ifrm.contentWindow.document; // W3C || IE  方式获取iframe的文档对象  
+  var ifrm_body=doc.body;  
+  doc.body.contentEditable= "true"; 
+   console.log("iframe html is:"+doc.innerHTML);
+   var content=$('#te').contents();
+
+   doc.addEventListener("copy", function(e)
+  {
+  	console.info(e);
+  	//var b = e.originalEvent.clipboardData;
+  	var b = e.clipboardData;
+  	var d='<section data-role="outer" label="Powered by 135editor.com" style="font-size:16px;"><ul class=" list-paddingleft-2" style="list-style-type: disc; margin: 0px; padding: 0px 0px 0px 30px;"><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">a</p></section></li><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">b</p></section></li><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">c</p></section></li></ul><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"></section></section> ';
+ 	b.setData("text/html", d);
+    b.setData("text/plain", d);
+    //window.showSuccessMessage("\u5df2\u6210\u529f\u590d\u5236\u5230\u526a\u5207\u677f");
+    return e.preventDefault();
+  }); 
+  
+  doc.addEventListener("paste", function(e)
+  {
+  	
+
+    console.info(e);
+ 	//var pastedText=e.originalEvent.clipboardData.getData('Text');
+ 	var pastedText=e.clipboardData.getData('Text');
+   console.log("pastedText:"+pastedText);
+    //var pastedText=window.clipboardData.getData('Text', true);
+ //alert(pastedText);
+  },false);
+/* $('#te body').eq(0).bind('paste',function(e){
+ 	console.info(e);
+ 	var pastedText=e.originalEvent.clipboardData.getData('Text');
+ 	alert(pastedText);
+ });*/
+/* setTimeout(function()
+ 	{
+      
+        doc.execCommand('Paste',false,null);
+  
+ 	},5000);
+*/
+
+ 
+  $('#triggerPaste').click(function () {
+ 
+  	//var myhtml=$('#te').contents().find('html').html();//getElementsByName("body").innerHTML;
+    //var myhtml=$('#te').contents().html();
+    //var myhtml=$(doc).html();
+   //var myhtml=$('#te').contents().find('body').html();
+    //console.log("iframe html is:"+document.getElementsByTagName("html").context());
+
+     $('#sytle_1').text("*{color: red;}");
+    //doc.body.focus();//是编辑器获得焦点，防止代码插入在编辑器外地方 
+    //doc.execCommand('Paste',false,null);
+  //  var son=document.getElementsByName("insertTest")[0];
+  //  ifrm_body.appendChild( son);
+
+  var frm = doc.createElement('form');
+  var s = doc.createElement('script');
+  //ifrm_body.appendChild(frm);
+  //ifrm_body.appendChild(s);
+   ifrm_body. innerHTML='<section data-role="outer" label="Powered by 135editor.com" style="font-size:16px;"><ul class=" list-paddingleft-2" style="list-style-type: disc; margin: 0px; padding: 0px 0px 0px 30px;"><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">a</p></section></li><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">b</p></section></li><li><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"><p style="line-height: 4em;">c</p></section></li></ul><section data-role="paragraph" class="_135editor" style="border: 0px none; padding: 0px; box-sizing: border-box;"></section></section>' ;
+    
+
+  });
+
+  $('#triggerCopy').click(function () {
+    
+  	//doc.execCommand('Copy',false,null);
+  	 $('#sytle_2').text("*{font-size: 24px;}");
+
+  });
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <style type="text/css">
+	code {
+	 display: block;
+	 word-wrap: normal !important;
+	 word-break: normal !important;
+	 //white-space: nowrap;
+	 white-space: pre;
+	 line-height: 12px;
+	 font-size: 10px;
+	 font-family: inherit !important;
+	 overflow: scroll;
+	 overflow-scrolling: touch;
+	}
+	.open_icon{
+    display: inline-block;  
+    width: 24px;
+    height: 24px;
+    background: url(./imgs/icon.png) no-repeat;
+    background-position: -72px -2px;
+
+  }
+  .save_icon{
+    display: inline-block;  
+    width: 23px;
+    height: 24px;
+    background: url(./imgs/icon.png) no-repeat;
+    background-position: -22px -2px;
+     
+  }
+  .icon_class
+  {
+    display: inline-block;  
+    height: 100%;
+    vertical-align: center;
+
+  }
+	.img_div{
+		width: auto;
+		height: auto;
+		background: url(./imgs/boy.png) no-repeat 20px 20px;
+	}
+  </style>
+</head>
+<body >
+	<a id="open_file" class="icon_class" href="#" title="new file"><span class="open_icon"></span></a>
+             <a id="save_file" class="icon_class" href="#" title="save file"><span class="save_icon"></span></a> 
+	<div class="img_div" > abc</div> 
+	<section  style="width:100%;display:inline-block;text-align:center">
+<p style="padding:8px 10px;color: rgb(255, 255, 255);background-color: rgb(89, 195, 249);display:inline;">
+abcd
+</p>
+</section>
+<br/>
+<div >
+ 	 <span>abc<input id="narrowcode" type="checkbox" name="narrowcode" ></input></span>
+ 	  <textarea id="editor" rows="100" cols="100"></textarea>
+</div>
+</body>
+</html>

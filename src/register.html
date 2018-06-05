@@ -1,0 +1,101 @@
+
+<!-- var ifrm = document.getElementById('myFrame');
+ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+ifrm.document.open();
+ifrm.document.write('Hello World!');
+ifrm.document.close();
+ -->
+<html>
+<head>
+  <script src="./js/jquery-3.1.1.js"></script>
+  <link rel="stylesheet" href="./css/bootstrap.css"/>
+  <script src="./js/bootstrap.js"></script>
+  <style>
+         
+        .logo{
+        width: 100%;
+        //height: 200px;
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 10px;
+        
+        
+      }
+      
+      
+      .title
+      {
+        //font-size: 30px;
+        border-bottom: 1px solid #eeeeee;
+                color: #b1b1b1;
+                margin-bottom: 50px;
+                
+      }
+      .title span
+      {
+        top:10px;
+        position: relative;
+        background-color:white;
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .input-group
+      {
+        margin-bottom: 20px;
+      }
+        
+       
+        </style>
+</head>
+<body>
+	<div class="container">  
+  
+          <div class="form_item">
+             <label >用户名:</label>
+             <div class="input-group">
+                 <input type="text" class="form-control" id="user_name" placeholder="以字母开头，只能包含字母、数字和下划线，3～30位长度">
+             </div>
+          </div>
+          <div class="form_item">
+             <label>邮箱:</label>
+             <div class="input-group">
+                 <input type="text" class="form-control" id="email" placeholder="注册后，要通过邮箱收到的邮件激活">
+             </div>
+          </div>
+          <div class="form_item">
+             <label>密码:</label>
+             <div class="input-group">
+                 <input type="text" class="form-control" id="email" placeholder="6~20位长度">
+             </div>
+          </div>
+        
+       
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="register_submit">注册</button>
+</div>
+<script>
+ $(document).ready(function(){ 
+       $('#register_submit').click(function(){
+               var submitObj = { "name": " " };
+               submitObj.name=$('#user_name').val();
+               var url = 'http://127.0.0.1/register';
+               var postStr=JSON.stringify(submitObj);
+               $.ajax({url:url,
+                 //contentType: "application/x-www-form-urlencoded;charset=utf-8", //only for form
+                 contentType:'application/json;charset=utf-8',//can post your define data
+                 type:"POST",
+                 data:postStr,           
+                 //data:submitObj,
+                 success:function(data){   
+             
+                      alert("return:"+data);
+                 }
+
+               });  
+
+            });
+ });
+
+</script>
+  
+</body>
+</html>

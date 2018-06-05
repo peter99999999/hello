@@ -1,0 +1,132 @@
+﻿
+
+.output_wrapper/*此属性为全局*/
+{
+     font-size: 16px;/*改变了其默认的字体大小*/ 
+     color: #3e3e3e;
+     line-height: 1.6;
+     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;   
+      letter-spacing:1px; /*改变了其默认的字符间距*/ 
+}
+.output_wrapper *
+{
+  font-size: inherit  ;
+  color: inherit;
+  line-height: inherit;
+  margin:0px;
+  padding:0px;
+}
+
+p {
+  margin: 1em 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin: 1em 0px;
+  font-weight:bold;
+}
+h1 {
+  font-size: 1.6em  ;
+ 
+}
+h2 {
+  font-size: 1.4em;
+}
+h3 {
+  font-size: 1.3em;
+}
+h4 {
+  font-size: 1.2em;
+}
+h5 {
+  font-size: 1em;
+}
+h6 {
+  font-size: 1em;
+}
+
+ul, ol {
+  padding-left: 0;//132px;
+  display:line-block;
+  text-align:center;
+
+}
+ul{
+    list-style-type: disc;
+}
+ol {
+  list-style-type: decimal;
+}
+
+li *  
+{
+ /* color: #3e3e3e;*/
+    color: #3e3e3e; /*因下面li 改变了符号的颜色，这儿使li下面的内容的颜色和默认的一样*/ 
+    //font-weight: normal;
+    font-size:0.6em;
+    font-style:normal;
+} 
+
+
+li{  
+    margin-bottom: 0.2em;
+/*  color:#159957; */ /*在公众号下，改变不了li符号的颜色，并会影响其字元素颜色无效;在其它博客中，能正常使用*/   
+    color:#159957; /*改变其默认的颜色*/ 
+    font-weight: bold;
+    font-size: 1.7em;
+    font-style:italic;
+    //text-align:center;
+}
+
+.code_size_default  /*代码块默认size*/
+{
+  line-height: 18px;
+  font-size: 14px; 
+  font-weight:normal;
+  word-spacing:0px; 
+  letter-spacing:0px; 
+}
+.code_size_tight /*代码块紧凑size*/
+{
+   line-height: 15px; 
+   font-size: 11px; 
+   font-weight:normal;
+   word-spacing:-3px; 
+   letter-spacing:0px; 
+}
+pre code 
+{           
+     font-family: Consolas, Inconsolata, Courier, monospace;
+}
+blockquote { 
+  display: block;
+  padding: 15px 1rem;
+  font-size: 0.9em;
+  padding-right: 15px;
+  margin: 1em 0;
+  color: #0C8918  ;     /*改变了其默认的引用的字体颜色*/
+  border-left: 6px solid #dce6f0;
+  background: #f2f7fb;
+  overflow: auto;
+  overflow-scrolling: touch; 
+  word-wrap: normal;
+  word-break: normal;  
+}
+blockquote p {
+    margin: 0px;
+}
+strong
+{
+  font-weight: bold;
+}
+a {
+  text-decoration: none;
+  color: #1e6bb8;
+}
+
+hr {
+  height: 1px;
+  margin: 1.5rem 0px;
+  border: none;
+  border-top: 1px dashed #A5A5A5;
+}
+

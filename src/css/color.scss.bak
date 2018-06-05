@@ -1,0 +1,557 @@
+
+//$edit_font_color:#50616D;
+//$editor_bg_color:#f6f6f6;
+$tool_header_color:#ededed;
+
+$edit_font_color:#fff;
+$editor_bg_color:#333;
+//$tool_header_color:#515155;
+
+$toolbar_hight: 50px;
+$main_font_color:#000000;
+$css_main_bg_color:#282b2e;
+$css_main_font_color:#ffffff;
+$css_toolbar_hight: 50px;
+$export_file_font_color: #3e3e3e;
+
+//$css_main_bg_color:yellow;
+
+*
+{
+  margin:0;
+  padding:0;
+// -moz-box-sizing: border-box;
+//　-webkit-box-sizing: border-box;
+  box-sizing: border-box;
+ //  word-spacing:1px; 
+ //  letter-spacing:1px; 
+ 
+  
+}
+
+
+
+
+body
+{
+	width: 100% ;
+	font-size: 16px;
+	font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  line-height: 1.6;
+}
+button, input, select, textarea {
+  font: 300 1em/1.8 'PingFang SC', 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', 'sans';  
+}
+
+select *
+{
+   font: 300 1em/1.8 'PingFang SC', 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', 'sans';
+}
+
+
+
+.all_container
+{
+	width: 100% ;
+	//height: 800px;
+	//height:869px;
+	//height:929px;
+	//position:absolute;
+
+	
+	
+}
+
+
+.tool_header
+{
+	width: 100% ;
+	height: $toolbar_hight;
+	background: $tool_header_color;
+	line-height:$toolbar_hight;
+	position:absolute;
+	top: 0px;
+    left:0px;
+	
+	
+//	display: flex;
+//	justify-content:space-between;
+//	 flex-direction:column ;
+	 
+
+}
+
+
+
+#icon_container_left{
+  height:$toolbar_hight;
+  margin-left:20px;
+  display:block;
+   float: left;
+  
+}
+#icon_container_right{
+  display: block;
+  height:$toolbar_hight;
+  float: right;
+  
+}
+
+
+
+#display_area
+{
+	position: absolute;
+	top:$toolbar_hight;
+	left:0;
+	width: 100% ;
+	height:869px;
+	border-bottom: 1px solid rgb(149, 155, 111);
+	border-top: 1px solid rgb(149, 155, 111);
+}
+
+#container_foot
+{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100% ;
+	height:30px;
+	background: $tool_header_color;
+
+}
+
+#editor
+{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 300px;//50% ;
+	height:100%;
+	margin:0 auto;	
+	padding: 20px;    
+	overflow: auto;//scroll;
+	background-color: $editor_bg_color;
+  font-family: courier, monospace;
+  font-size: inherit;
+  color: $edit_font_color;
+  
+  //会自动换行，当到框边时就自动换行。
+  word-wrap: break-word;
+  word-break: normal;	 
+  white-space: pre-wrap;
+
+/*
+ // 不会自动换行，除非你enter换行
+  word-wrap: normal !important;
+  white-space: normal !important;
+	white-space: pre !important;
+*/	
+	
+}
+
+#drag_indicate
+{
+	position: absolute;
+	top:0;
+	left:0px;
+	transform: translate(300px, 0px);
+	width:10px;
+	height:100%;	
+	user-select: none;
+	user-drag: none;
+	touch-acion:pan-y;
+	cursor:e-resize;
+	background-color: #f6f6f6;
+	border-left: 1px solid rgb(149, 155, 111);
+	border-right: 1px solid rgb(149, 155, 111);
+  z-index: 20;
+}
+
+#editor_render
+{
+	position: absolute;
+	top:0;
+	left:0px;
+	transform: translate(310px, 0px);
+	width: 300px;
+	height:100%;
+	margin:0 auto;
+	padding: 20px;
+	overflow: auto;//scroll;
+	background-color: #fff;	
+}
+
+
+
+.Title
+{
+	width: 100% ;
+	height: 100%;
+	text-align:left;
+	padding-left:60px;	
+	font-size: 22px;
+	font-weight:bold;
+//	display:inline
+
+}
+
+
+
+.btn {
+  border: 1px solid rgb(141, 153, 77);
+  //color: white;
+  padding: 5px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  //box-shadow: 1px 1px 3px #666;
+  border-radius: 3px;
+}
+
+
+
+
+
+
+
+#copy_btn {
+ // z-index: 3;
+  background-color: #ededed;
+   margin-right: 120px;
+}
+
+#code_select
+{
+ //    z-index: 3;
+     height:100%;
+}
+
+#narrowcode_select
+{
+ //    z-index: 3;
+     height:100%;
+     display:inline-block;
+     text-align:center;
+      margin-right: 20px;
+}
+
+#html_select
+{
+    
+     display:none;
+     //display:inline-block;
+     z-index: 3;
+     height:100%;
+     text-align:center;
+     margin-right: 20px;
+
+}
+
+.theme-wrapper {
+    display: inline-block;
+    margin-right: 20px;
+    text-align:center;
+     height:100%;
+    select {
+      background: #FFF;
+    }
+  }
+
+
+
+#open_file span
+{
+	//background: url(./imgs/icon.png) no-repeat 20px 20px;
+}
+
+#mycss_icon
+{
+	
+	margin-right:20px;
+	text-decoration: none;
+	color:#159957 !important;
+  //color:#1e819e !important;
+  font-weight:bold;
+  // box-shadow: 5px 5px 10px black;
+  //text-shadow: 5px 5px 10px black;
+}
+
+ 
+
+ #mycss_icon:active
+ {
+      transform: translate(1px, 1px);
+ }
+  #cssSetting
+  {
+     z-index: 4;
+    visibility:hidden;
+  }
+
+ #cssSetting,#file_export_setting
+ {  
+     
+     position: absolute;
+     top:0;
+	 left:0px;
+	 display: flex;
+	 flex-direction: column;
+	 width: 50% ;
+	 height:100%;
+	 background-color:$css_main_bg_color;
+	 padding:0px 20px ;
+	
+
+ }
+#cssToolHead,#file_export_settingHead
+{
+	 display:block;
+	 width:100%;
+    height:$css_toolbar_hight;
+    flex-basis:$css_toolbar_hight;
+    flex-shrink:0;
+    background-color:$css_main_bg_color;
+    color:$css_main_font_color;
+    
+   
+
+   
+}
+
+#cssToolHead  #css_select
+{
+       padding-top:15px;
+}
+
+#cssToolHead  #cssnote
+{ 
+    font-size: 12px;
+}
+
+
+ #cssEditArea,#file_export_cssEditArea
+ {
+   
+   // box-sizing: border-box;
+    width:100%;
+   // height:100%;
+    padding:20px;
+    background-color:#f6f6f6;
+    flex-grow:1;
+    word-wrap: normal !important;
+    word-break: normal !important;	 
+	  white-space: pre !important;
+     overflow: auto;
+
+ }
+ #cssToolFoot,#file_export_settingFoot
+{
+	   display: flex;
+     justify-content:space-around;
+     align-items:center;
+	   width:100%;
+    height:$css_toolbar_hight;
+     flex-basis:$css_toolbar_hight;
+     flex-shrink:0;
+     background-color:$css_main_bg_color;
+    // color:$css_main_font_color;
+     font-weight:bold;
+      
+      color:$edit_font_color;
+
+      *
+      {
+        margin-right:20px;
+      }
+      a{
+         text-decoration: none;
+         color:inherit;
+      }
+     
+}
+
+
+#file_export_container
+{
+     position: absolute;
+     top:0;
+     left:0px;
+      width: 100% ;
+    z-index: 5;
+    visibility:hidden;
+}
+/*
+#file_export_tool_head
+{
+  position:absolute;
+  top: 0px;
+  left:0px;
+  width: 100% ;
+  height: $toolbar_hight;
+  background: #ededed;
+  line-height:$toolbar_hight;
+  vertical-align:middle;
+  
+}
+*/
+#file_export_setting
+{
+     position: absolute;
+     top:$toolbar_hight;
+     left:0px;
+     height:100%;
+     
+}
+#export_iframe_container
+{
+     position: absolute;
+     top:$toolbar_hight;
+     left:0px;
+     height:100%;
+     background:#ffffff;
+}
+#export_iframe
+{
+     
+     width:100%;
+     height:100%;
+}
+
+#export_iframe_cover
+{
+     
+     position: absolute;
+     top:0;
+     left:0px;
+     width:0px;
+     height:100%;
+}
+
+
+ 
+
+
+
+
+ .icon_class:hover
+  {
+      transform: translate(1px, 1px);   
+      cursor:pointer;   
+  }
+
+  .icon_class:active
+  {
+      transform: translate(1px, 1px);
+  }
+
+ 
+  .edit_icon
+  { 
+    display: inline-block;    
+    background: url(../imgs/edit.png) no-repeat;
+    height: 36px;
+    width: 40px;  
+    background-position: 7px 6px;
+    vertical-align: middle; 
+  }
+  .export_icon
+  { 
+    display: inline-block;    
+    background: url(../imgs/download.png) no-repeat;
+    height: 36px;
+    width: 40px;  
+    background-position: 7px 6px;
+    vertical-align: middle; 
+  }
+  
+  .icon_class
+  {
+    display: inline-block;  
+//    height: 100%;
+    vertical-align: middle;
+    letter-spacing:2px;
+    font-weight:bold;
+
+   }
+
+   #cssToolFoot .icon_class
+   {
+       color:$css_main_font_color;
+   }
+   #file_export_settingFoot .icon_class
+   {
+       color:$css_main_font_color;
+   }
+   #saveIndicate
+   {
+     
+      display: inline-block;  
+      font-size: 12px;
+      color:#50616D;
+      visibility:hidden;
+      margin-left: 20px;
+   }
+   #html_select
+   {
+      color: #1e819e;
+      font-weight:bold;
+    }
+
+
+
+.css_edit_note
+{
+   color:#159957;
+   font-weight:bold;
+}
+
+.css_edit_update
+{
+   color: #f82375;
+   font-weight:bold;
+}
+
+#export_iframe
+{
+  z-index: 10;
+}
+#file_export_tool_head
+{
+  position:absolute;
+  top: 0px;
+  left:0px;
+  width: 100% ;
+  height: $toolbar_hight;
+  background: #ededed;
+  line-height:$toolbar_hight;
+  vertical-align:middle;
+
+  padding-left: 40px;
+  color:$export_file_font_color;
+  input
+  {
+    text-align:right;
+    padding-right:5px;
+    width:120px;
+  }
+  > *
+  {
+     margin-right:20px;
+  }
+  #file_export_nameinput
+  {
+     // margin-left:200px;
+  }
+
+  .icon_class
+   {
+       color:$export_file_font_color;
+   }
+}
+
+
+
+//somebody:color: rgb(89, 89, 89);/*<span  class="css_edit_note">改变了其默认的字体颜色</span>*/
+//#3e3e3e;

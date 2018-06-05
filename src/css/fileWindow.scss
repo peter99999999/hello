@@ -1,0 +1,266 @@
+$POP_BG_LAYER:499;
+$POP_LAYER:500;
+
+#fileWindow
+{
+  position: absolute;
+  top:0;
+  left:0px;
+  width: 100px;
+  height:100%;
+  margin:0 auto;
+  padding: 20px;
+  overflow: auto;//scroll;
+  //background-color:red
+  user-select:none;//点击不选中任何文字
+}
+
+#fileWindow ul
+{
+	padding-left:10px;
+}
+
+
+.folder_close
+  { 
+    .folder //folder close img: folder
+    {
+	    display: inline-block;    
+	    background: url(../imgs/filewindow.png) no-repeat;
+	    height: 16px;
+	    width: 16px;  
+	    background-position: -111px 0px;
+	    vertical-align: middle; 
+	}
+	.folder_status//folder close img: +
+	{ 
+	    display: inline-block;    
+	    background: url(../imgs/filewindow.png) no-repeat;
+	    height: 16px;
+	    width: 16px;  
+	    background-position: -76px 0px;
+	    vertical-align: middle; 
+	}
+}
+.folder_open
+  { 
+    .folder //folder open img: folder
+    {
+	    display: inline-block;    
+	    background: url(../imgs/filewindow.png) no-repeat;
+	    height: 16px;
+	    width: 16px;  
+	    background-position: -111px -16px;
+	    vertical-align: middle; 
+	 }
+	.folder_status//folder open img: -
+    { 
+    display: inline-block;    
+    background: url(../imgs/filewindow.png) no-repeat;
+    height: 16px;
+    width: 16px;  
+    background-position: -94px 0px;
+    vertical-align: middle; 
+   }
+}
+
+.folder_item
+{
+	display:inline-block;
+//	width:100%;
+	margin-left:-20px;
+	 word-wrap: normal !important;
+	white-space: pre !important;
+}
+
+.folder_item:hover,.file_item:hover
+{
+	background:#EFEBE9;
+}
+
+.file_item_display
+{
+//position:relative;	
+cursor:default;
+padding:0px 10px;
+}
+
+.file_item
+{
+  word-wrap: normal !important;
+	white-space: pre !important;
+}
+
+.folder_function
+{
+   // position:relative;
+  //  float:right;
+   
+}
+
+/*
+.popup_btn
+{
+    //position:relative;
+    display: inline-block;    
+    background: url(../imgs/edit.png) no-repeat;
+    height: 16px;
+    width: 40px;  
+    background-position: 7px 0px;
+    vertical-align: middle; 
+}
+*/
+
+.popup
+{
+z-index:$POP_LAYER;
+user-select:none;//点击不选中任何文字
+position:absolute;
+}
+
+
+.popup_item:hover
+{
+	background:#424242;
+	color:#ffffff;
+}
+.popup_item
+{
+  display:block;
+  width:100%;
+  height:50px;
+ //blackground:#ffffff;
+  border-top: 1px solid #000000;
+  padding:10px;
+}
+
+.popup_item:first-child
+{
+	border-top: 0px solid red;
+}
+
+#filewindow_popup
+{
+display:block;
+background:#EFEBE9;
+//border-radius:10px;
+ border: 2px solid #FBE9E7;
+ width:200px;
+}
+
+
+
+.item_select
+{
+  background:#E0E0E0;
+}
+
+.drag_over
+{
+   background:#9575CD;//#9FA8DA;
+   color:#ffffff;
+}
+  
+#global_popup
+{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+}
+.popup_background
+{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  background:#000000;
+  opacity:0.3;
+  z-index:$POP_BG_LAYER;
+}
+.popup_conetent
+{
+  display:flex;
+  align-items:center;
+  justify-content:center; 
+    width:100%;
+   height:100%;
+   
+  
+
+}
+
+.common_pop{
+   
+  display:flex;
+   flex-direction:column;
+   align-items:center;
+   justify-content:space-around;
+   background:#ededed;
+   border: 5px solid #9E9E9E;
+   border-radius:10px;
+   padding: 10px;
+   word-wrap: break-word;
+  word-break: break-word;
+  
+}
+.common_file_pop
+{
+   
+   width:400px;
+   height:250px; 
+   
+   
+}
+.new_file_name
+{
+  
+   width:350px;
+   height:200px; 
+  
+   
+}
+
+.new_file_name .btn_group
+{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-around;
+}
+
+
+.warning
+{
+ // color:red;
+  color:#E65100;
+  
+}
+.new_file_name .warning
+{
+  visibility:hidden;
+}
+
+
+.popup_btn
+{
+  padding:2px 20px;
+  
+  //border: 1px solid #9E9E9E;
+ //   border-radius:10px;
+    
+}
+
+.workspace_folder
+{
+  font-weight: bold;
+  color:#00BFA5;
+}
+.import_folder
+{
+
+}
+
+
+

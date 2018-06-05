@@ -1,0 +1,78 @@
+  <html>
+<head>
+  <script src="./js/jquery-3.1.1.js"></script>
+  <link rel="stylesheet" href="./css/highlight/agate.css"/>
+  <link rel="stylesheet" href="./css/highlight/androidstudio.css"/>
+   <style type="text/css" id="sytle_1">
+   
+  </style>
+
+  <style type="text/css" id="sytle_2">
+    
+    blockquote {
+  display: block !important;
+  padding: 15px 1rem;
+  font-size: 14px;
+  padding-right: 15px;
+  margin-left: 0;
+  color: #819198;
+  border-left: 6px solid #dce6f0;
+  background: #f2f7fb;
+  overflow: auto !important;
+  overflow-scrolling: touch;
+  word-wrap: normal !important;
+  word-break: normal !important;  
+  white-space: pre !important; 
+  
+
+}
+.testSpan
+{
+  color:red;
+ /*
+  position: absolute;
+  left: 0px;
+  top:2000px;
+  */
+}
+textarea {
+   width:800px;
+   height:200px;
+
+}
+
+  </style>
+</head>
+<body>
+  <ul>
+          <li>one</li>
+          <li>two</li>
+          <li>three</li>
+          <li>four</li>
+        </ul>
+  <img src="http://img.blog.csdn.net/20171012163602706" alt="这里写图片描述" > 
+  <img src="./imgs/edit.png">
+    <span class="testSpan">hello ,gary</span>
+    <button id="canvas_convert">canvas convert</button>
+    <div id="canvas_container"></div>
+   <!--  <textarea id="editor"></textarea> -->
+<script type="text/javascript" src="./html2canvas.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script type="text/javascript">
+       $("#canvas_convert").click(function(){
+             //html2canvas(document.body).then(function(canvas) {
+            //document.body.appendChild(canvas);
+            
+             html2canvas(document.body).then(function(canvas) {
+            $("#canvas_container").html(canvas);
+        });
+            /*var doc = new jsPDF();
+
+            doc.text('Hello world!', 10, 10);
+            doc.save('a4.pdf');*/
+       });
+       
+    </script>
+</body>
+</html>
+
