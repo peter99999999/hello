@@ -1,5 +1,5 @@
-var isEletronApp=true;
-//var isEletronApp=false;
+//var isEletronApp=true;
+var isEletronApp=false;
 if(isEletronApp)
 {
     target='electron-renderer';

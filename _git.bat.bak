@@ -1,5 +1,0 @@
-git status
-git add -A
-git commit -m "first version to Yafine"
-git push
-pause

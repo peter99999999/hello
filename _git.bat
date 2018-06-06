@@ -1,5 +1,5 @@
 git status
 git add -A
-git commit -m "qiniu part complete,webpack conditional compile,webpack alias"
+git commit -m "want to add MarkdownConvert.js"
 git push
 pause

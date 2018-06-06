@@ -30,7 +30,8 @@
     "markdown-it-katex": "^2.0.3",
     "marked": "^0.3.6",
     "qiniu": "^7.1.7",
-    "qiniu-js": "^2.2.2"
+    "qiniu-js": "^2.2.2",
+    "qiniu-uptoken": "^1.0.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",

@@ -1,5 +1,6 @@
 var qiniu_js = require('qiniu-js')
 //var qiniu_server = require('qiniu')
+var QiniuUPToken = require('qiniu-uptoken');
 var insetCaret = require('./jquery.insert-at-caret.js')
 var $ = require("jquery");
 var LocalStore=require("./common/localstore.js");
@@ -25,7 +26,8 @@ UploadImg.prototype.Init=function()
           var config = {
             useCdnDomain: false,
           };
-        var token='Ypg-eF7o-j0tBZJdyLjc1cVu-c0Kzztx3n8rbmzV:0Yomy3LdYxh1rj8sSu90HPn_laI=:eyJzY29wZSI6ImdhcnkteWFuIiwiZGVhZGxpbmUiOjE1NTk2MTIyNTN9';
+        
+        var token = QiniuUPToken(self.picServerConfig.accesskey, self.picServerConfig.secretkey, self.picServerConfig.bucketname)
         var observable = qiniu_js.upload(f, f.name, token, putExtra, config);
         var observer = {
             next(res){
@@ -36,7 +38,7 @@ UploadImg.prototype.Init=function()
             }, 
             complete(res){
                 console.log('observer complete ,the res.key is: '+res.key);
-                $('textarea').insertAtCaret('!['+res.key+'](http://ob1xb5axi.bkt.clouddn.com/'+res.key+')');
+                $('textarea').insertAtCaret('![]('+self.picServerConfig.bucketdomain+"/"+res.key+')');
             }
           }
          try
@@ -71,16 +73,7 @@ UploadImg.prototype.Init=function()
             $(".bucketdomain").val(self.picServerConfig.bucketdomain);
         }
 
-      /*   var accessKey = 'Ypg-eF7o-j0tBZJdyLjc1cVu-c0Kzztx3n8rbmzV';
-        var secretKey = 'yT2RZlrMaz7zfW-1_S2c1ndmPHIZQ6RGHS2FsaYV';
-        var mac = new qiniu_server.auth.digest.Mac(accessKey, secretKey);
-        var options = {
-            scope: "gary-yan",
-          };
-          var putPolicy = new qiniu_server.rs.PutPolicy(options);
-          var uploadToken=putPolicy.uploadToken(mac); */
-          let i;
-          i=0;
+        
 
     })
    

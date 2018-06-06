@@ -148,7 +148,7 @@ function CssThemeCall()
 function start()
       {
          
-        $("#global_popup").hide();
+              $("#global_popup").hide();
               window.converter =  new showdown.Converter({
               extensions: ['tasklist','footnote','katex-latex',figure,'showdown-toc'],
               tables: true,
