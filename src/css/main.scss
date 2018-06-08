@@ -590,7 +590,7 @@ select *
 
 //somebody:color: rgb(89, 89, 89);/*<span  class="css_edit_note">改变了其默认的字体颜色</span>*/
 //#3e3e3e;
-
+@import "./popup.scss";
 @import "./fileWindow.scss";
 @import "./color_bar.scss";
-@import "./picturepopup.scss";
+@import "./uploadImg.scss";

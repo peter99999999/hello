@@ -19,6 +19,7 @@ var ExportHtml= require("./export_html.js");
 var ColorApp= require("./color/colorApp.js");
 var ScrollSync= require("./ui/scrollsync.js");
 var WindowHandle= require("./ui/WindowHandle.js");
+var PopUp= require("./ui/popup.js");
 var FileExplorer=null;
 if(ELECTRON_APP)
 {
@@ -58,6 +59,7 @@ window.OUTPUT_WRAPPER_ID="output_wrapper_style";
 window.CODE_THEME_ID='code_theme';
 window.CODE_SIZE_ID='code_size';
 window.MY_CSS_ID="mycss";
+window.VERSION_WARN_ID="versionwarn";
 
 //var PageTheme = require("./theme/page-theme");
 var hljs = require("./highlight/highlight.pack.js");
@@ -82,16 +84,22 @@ window.output_wrapper_css_ext2=' .output_wrapper pre code *{word-wrap: inherit !
 window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:super; }';
 //window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:middle; }; .katex .msupsub .vlist span .mathrm{display: inline-block;height: 0;position: static;vertical-align:super; }; .katex .msupsub .vlist span .mathit{display: inline-block;height: 0;position: static;vertical-align:sub; } ';
 //window.output_wrapper_css_katex_ext='';
+window.updateData=function(data)
+{
+    updateOutput(); 
+}
 window.saveEditData=function()
 {
     return(gFileExplolerIns.fs_saveFile( $('#editor').val()));
 }
+
 window.updateEditData=function(data)
 {
     firstEdit=false;
     $('#editor').val(data); 
     updateOutput(); 
 }
+
 function DelKateInvalidInfo()
 {
     $('#render_output_id .katex-mathml').each(function() {
@@ -148,7 +156,7 @@ function CssThemeCall()
 function start()
       {
          
-              $("#global_popup").hide();
+              
               window.converter =  new showdown.Converter({
               extensions: ['tasklist','footnote','katex-latex',figure,'showdown-toc'],
               tables: true,
@@ -174,6 +182,7 @@ function start()
               $('#editor').val(data);
                updateOutput();
           }});
+             PopUp.init();
             new UploadImg();
             new ColorApp();
             gCodeThemeIns=new CodeTheme();
@@ -188,6 +197,10 @@ function start()
             if(ELECTRON_APP)
             {
                 gFileExplolerIns=new FileExplorer();
+            }
+            else
+            {
+                $("#filewindow_popup").hide();
             }
           //  new PageTheme();   
             var clipboard=new Clipboard('.btn');

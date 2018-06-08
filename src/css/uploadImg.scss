@@ -1,0 +1,90 @@
+$PIC_BTN_BACKGROUND_COLOR:#00C853;
+.picture_popupContent,.picSettingContainer
+{
+    display: flex;
+    flex-direction:column;
+   
+    margin: 40px 0px 10px 0px;
+    padding: 10px;
+    border: 2px solid rgb(149, 155, 111); 
+    border-radius: 5px;
+    
+}
+
+.picture_popupContent
+{
+    width:800px;
+}
+.picSettingContainer
+{
+    width:100%;
+}
+
+.picInputInfoItem
+{
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    padding:10px 0px;
+}
+
+.picInputInfoItem label
+{
+  width:20%;
+  flex-grow:0;
+ 
+}
+
+.picInputInfoItem input
+{
+  
+  flex-grow:1;
+}
+
+.uploadPicBtn
+{
+    display: block;
+  
+    background:$PIC_BTN_BACKGROUND_COLOR;
+    color:white;
+    border: 1px solid #D7CCC8;    
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+  
+}
+
+.uploadPicBtnContainer
+{
+    margin-top:10px;
+   
+    width: 100%;
+}
+
+
+  .uploadWarning
+  {
+      text-align: left;
+      margin-bottom: 40px;
+  }
+
+  .picture_percentContent
+  {
+    width:600px;
+    
+  }
+  .picPercentId
+  {
+    width:600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 20px;
+  }
+
+  /* .savePicSetting
+  {
+    background:$PIC_BTN_BACKGROUND_COLOR;
+    color:white;
+  } */

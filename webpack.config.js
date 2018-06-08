@@ -33,8 +33,8 @@ module.exports = {
         publicPath:'output/',//my_publicPath,
         filename: '[name].js'
     },
-    //devtool: 'inline-source-map',
-    devtool: 'hidden-source-map',
+    devtool: 'inline-source-map',
+    //devtool: 'hidden-source-map',
     resolve:{
         alias: {
            // 'jquery': "./src/js/jquery-3.1.1.js" 
@@ -66,9 +66,16 @@ module.exports = {
             { test: /\.js$/, loader: 'jsx-loader?harmony' },
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
              {                                                                              
-              test: /\.js$/,                                                                                
-              loader: ['babel-loader'],  
-              exclude: [nodeModulesPath],                                                                                                                                                                                                              
+              test: /\.js$/,                                                                                      
+              exclude: [nodeModulesPath],
+              loader: ['babel-loader']
+               /* use:{  
+                loader: ['babel-loader'],
+                options: {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['@babel/plugin-transform-runtime']
+                }  
+              }  */                                                                                                                                                                                                           
             }   
         ]
     },

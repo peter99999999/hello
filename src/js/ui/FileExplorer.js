@@ -206,7 +206,7 @@ FileExplorer.prototype.init = function() {
 	      
            var self=this;
            
-          
+           $("#filewindow_popup").hide();
 		   var array = ["a.md","aa.md","aaa.md","cc","b.md","b","bb.md","c.md","cc.md","ccc.md","d.md","g.md","gg.md"];
 		   function compare(val1,val2){
 			  // return val1-val2;
@@ -264,9 +264,9 @@ FileExplorer.prototype.init = function() {
    
          
 
-         $("#filewindow_popup").bind("contextmenu", function(){//使右键无效，否则弹出此菜单时还会弹出浏览器默认的右键菜单
+          $("#filewindow_popup").bind("contextmenu", function(){//使右键无效，否则弹出此菜单时还会弹出浏览器默认的右键菜单
 		  	return false;
-		 })
+		 }) 
 
 		 $("#filewindow_popup").hover(
                   	function(){
@@ -279,7 +279,7 @@ FileExplorer.prototype.init = function() {
                   	}
           );
 
-        $("#global_popup").hide();
+        
 
 }
 

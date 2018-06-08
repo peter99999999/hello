@@ -30,29 +30,59 @@
         </div> -->
       </div>
     </div>
+    
+    <div id="picture_error_popup" style="display:none">   
+        <div class="picture_errorPopupContent common_pop">
+            <div class="closePopupContainerId">
+                <span class="icon_class  close_popup_icon close_popup_id" ></span>
+            </div>
+            <div >
+              <div class="warning">图片上传失败！</div>
+              <div>请点击工具栏“图片”图标，检查 [图床配置] 是否正确！</div>
+              <div>并确认图片类型为：png、jpg、bmp、gif或jpeg!</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="picture_percent_popup" style="display:none">   
+        <div class="picture_percentContent common_pop">
+            <div class="closePopupContainerId">
+                <span class="icon_class  close_popup_icon close_popup_id" ></span>
+            </div>
+            <div class="picPercentId">           
+            </div>
+        </div>
+    </div>
 
-    <div id="picture_popup" style="display:none">
-     
+    <div id="version_popup" style="display:none">   
+        <div class="versionContent common_pop">
+            <div class="closePopupContainerId">
+                <span class="icon_class  close_popup_icon close_popup_id" ></span>
+            </div>
+            <div class="versionContentId">           
+            </div>
+        </div>
+    </div>
+
+    <div id="picture_popup" style="display:none">   
       <div class="picture_popupContent common_pop">
-          <div id="closePicIconContainer">
-              <span class="icon_class  close_pic_icon close_pic_id" ></span>
+          <div class="closePopupContainerId">
+              <span class="icon_class  close_popup_icon close_popup_id" ></span>
           </div>
          <div class="uploadPicBtnContainer">
-           <label class="uploadPicBtn" for="uploadPic">请选择上传的图片</label>
-           <input type="file" name="pic" id="uploadPic"accept="image/png,image/jpeg,image/gif"  style="display:none"></input>
+           <label class="uploadPicBtn" for="uploadPicInputId">请点击选择本地图片</label>
+           <input type="file" name="pic" id="uploadPicInputId" accept="image/png,image/jpg,image/jpeg,image/gif"  style="display:none"></input>
         </div>  
         <div>
-        <label class="uploadWarning">注：要上传图片，先要在七牛云上注册，并设置如下信息：</label>
+       
       </div>
-        <label   class="uploadPicBtnID uploadPicBtn" >设置我的七牛云图床</label>
-
         <div   class="picSettingContainer picSetting">
-            <label>请设置你七牛云图床相应信息：</label>
+            <label class="warning">注：如要插入本地图片，先要在七牛云上注册，填写下面信息并“保存”。OK后,插入本地图片会自动上传到七牛云，并正确显示到Md2All中。</label>
             <div class="picInputInfoItem"><label class="item_name ">	Access Key:</label><input class="accesskey" placeholder="请输入你在七牛的AccessKey"></input></div>
             <div class="picInputInfoItem"><label class="item_name ">Secret Key:</label><input class="secretkey" placeholder="请输入你在七牛的SecretKey"></input></div>
             <div class="picInputInfoItem"><label class="item_name ">Bucket Name:</label><input class="bucketname" placeholder="请输入你在七牛个人的储存空间名称,如:mybucket"></input></div> 
-            <div class="picInputInfoItem"><label class="item_name ">Bucket Domain:</label><input class="bucketdomain" placeholder="请输入你在七牛个人的储存空间域名,如：http://mydomain.bkt.clouddn.com"></input></div> 
-            <button class="savePicSetting">保存</button>
+            <div class="picInputInfoItem"><label class="item_name ">Bucket Domain:</label><input class="bucketdomain" placeholder="请输入你在七牛个人的储存空间域名,如：mydomain.bkt.clouddn.com"></input></div> 
+            <button class="savePicSetting">保存设置</button>
         </div>
       </div>
     </div>
@@ -85,27 +115,7 @@
   <div id="display_area">
      
       <div id="fileWindow">
-        
-      <!--   <ul class="file_type" ><div class="folder_open folder_item"><span class="folder_status"></span><span class="folder"></span>abc<div class="folder_function"> </div></div></ul> -->
-       <!--  bookdisk
-        <div class="test_item"><span class="test_item_son">aaakkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</span></div>
-        <div class="test_item">
-            <span class="test_item_son">bbb</span>
-             <div class="test_item">
-                  <span class="test_item_son">bbbb</span>
-             </div>
-        </div> -->
-      <!--   <ul>
-          <li>
-            foder
-            <ul>
-              <li>abcdsfdsafdsafdsafdsafdsafdsafdsafdsafdsafdsafdsafdsafdsa</li>
-              <li>abc</li>
-              <li>abc</li>
-            </ul>
-          </li>
-          <li>abc</li>
-        </ul> -->
+      
 
       </div>
       <textarea id="editor" spellcheck="false"></textarea>
