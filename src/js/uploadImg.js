@@ -10,6 +10,9 @@ var LocalStore=require("./common/localstore.js");
 var MyStr=require("./common/myStr.js");
 const PIC_SERVER_SETTING="picserverconfig.json"; 
 var UploadImg = function () {
+    this.fileNum=0;
+    this.fileCount=0;
+    this.haveError=false;
     this.picServerConfig={"accesskey":"","secretkey":"","bucketname":"","bucketdomain":""};
     this.Init();
 };
@@ -45,50 +48,28 @@ UploadImg.prototype.Init=function()
             i=0;
         }
     }
-    let observer = {
-        next(res){
-           // console.log('observer next ');
-          
-            $('.picPercentId').html("上传图片进度为："+ res.total.percent+"%");
-           
-        },
-        error(err){
-            let strhtml=$("#picture_error_popup").html();
-            PopUp.showContent(strhtml);
-        }, 
-        complete(res){
-            //console.log('observer complete ,the res.key is: '+res.key);
-            let domain;
-            if(0==self.picServerConfig.bucketdomain.indexOf("http"))
-            {
-                domain=self.picServerConfig.bucketdomain;
-            }
-            else
-            {
-                domain=HTTP_PREFIX+self.picServerConfig.bucketdomain;
-            }
-            $('textarea').insertAtCaret('![]('+domain+"/"+res.key+')');
-            PopUp.hide();
-            window.updateData();
-        }
-      }
+    
     document.getElementById("editor").addEventListener('drop', function (e) {
+        let files;
         e.preventDefault();
-        e.stopPropagation();	       
-        for (let f of e.dataTransfer.files) {
-        console.log('File(s) you dragged here: ', f.name)     ;
-        self.Upload(f,observer,self)
+        e.stopPropagation();	 
+        files=e.dataTransfer.files;
+        if(files.length>0)
+        {
+            self.PopUpInit(files.length);
+            self.Upload(files,self)
+        }      
   
-    }
+    });
       
-  });
+  
   document.getElementById("editor").addEventListener('dragover', function (e) {
             e.preventDefault();
             e.stopPropagation();
       });
    $("#picture").on("click",function()
     {
-        let strhtml=$("#picture_popup").html();
+        let strhtml=$("#picture_setting_popup").html();
         PopUp.showContent(strhtml);
         //$("#global_popup  .picSettingContainer").hide();
         let picServerConfigTmp=LocalStore.getValue(PIC_SERVER_SETTING);
@@ -122,12 +103,17 @@ UploadImg.prototype.Init=function()
 
 
     $("#global_popup").on('change', "#uploadPicInputId",function (e) {
-        let file = e.currentTarget.files[0];
+        let files = e.currentTarget.files;
         PopUp.hide();
-        self.Upload(file,observer,self)
+        if(files.length>0)
+        {
+            self.PopUpInit(files.length);
+            self.Upload(files,self)
+        }
     })
 
     document.getElementById("editor").addEventListener("paste", function (e){
+        let files=[];
         let ii=0;
         if ( !(e.clipboardData && e.clipboardData.items) ) {
          return ;
@@ -143,35 +129,153 @@ UploadImg.prototype.Init=function()
          } else if (item.kind === "file") {
           var pasteFile = item.getAsFile();
           // pasteFile就是获取到的文件
-          self.Upload(pasteFile,observer,self)
+          files.push(pasteFile);
+          
          }
         }
+        
+        if(files.length>0)
+        {
+            self.PopUpInit(files.length);
+            self.Upload(files,self)
+        }
+
        });
     
 }
-
-
-UploadImg.prototype.Upload = function (f,observer,self) {
-    var putExtra = {
-        fname: f.name,
-        params: {},
-        mimeType:["image/png", "image/jpeg", "image/gif","image/jpg","image/bmp"]
-      };
-      var config = {
-        useCdnDomain: false,
-      };
-    
-    var token = QiniuUPToken(self.picServerConfig.accesskey, self.picServerConfig.secretkey, self.picServerConfig.bucketname)
-    //var observable = qiniu_js.upload(f, f.name, token, putExtra, config);
-    var observable = qiniu_js.upload(f, null, token, putExtra, config);//当key为null时，返回的文件名为文件内容的hash值。
-     
-    var subscription = observable.subscribe(observer) ;// 上传开始 
-    let strhtml=$("#picture_percent_popup").html();
+UploadImg.prototype.PopUpInit=function(fileNum)
+{
+  
+    this.fileNum=fileNum;
+    this.fileCount=0;    
+    this.haveError=false;
+    let strhtml=$("#picture_popup").html();
     PopUp.showContent(strhtml);
-    $('.picPercentId').html("正在上传图片......");
-    
+    $('#global_popup .picError').hide();
+    $('#global_popup .closePopupContainerId').hide();
+   
+}
+UploadImg.prototype.CheckComplete=function()
+{
+   this.fileCount++;
+   if(this.fileCount==this.fileNum)
+   {
+       if(this.haveError)
+       {
+         $('#global_popup .picError').show();
+         $('#global_popup .closePopupContainerId').show();
+       }
+       else
+       {
+        PopUp.hide();
+       }
+   }
+}
+UploadImg.prototype.Upload = function (files,self) {
+    let f;
+    const UPLOAD_ERROR="<span class='warning'>上传失败!<span>"
+    for(let i=0;i<files.length;i++ )
+    {
+                
+                f=files[i];
+                let index=0;
+                let imgSrc=URL.createObjectURL(f);
+                let findDom;
+                let haveCallError=false;
+                let haveInsertDom=false;
+                let imgInfo;
+               
+                
+                findDom=$('.picItems').find(".picticItem");
+                index=findDom.length;
+
+                
+               
+                    let observer = {
+                        next(res){
+                        // console.log('observer next ');
+                        
+                        findDom=$('#global_popup .picItems' ).find(".picticItem").eq(index);
+                        findDom=$(findDom).find("lable");
+                        let percentStr=""+res.total.percent;
+                        if(percentStr.length>8)
+                        {
+                            percentStr=percentStr.substr(0,8)
+                        }
+                        $(findDom).html("上传图片进度为："+percentStr+"%");
+                        
+                        },
+                        error(err){
+                        // let strhtml=$("#picture_error_popup").html();
+                        // PopUp.showContent(strhtml);
+                            if(haveInsertDom)
+                            {
+                                findDom=$('#global_popup .picItems' ).find(".picticItem").eq(index);
+                                findDom=$(findDom).find("lable");
+                                $(findDom).html(UPLOAD_ERROR);
+                            }
+                            self.haveError=true;
+                            self.CheckComplete();
+                            haveCallError=true;
+                            
+                        }, 
+                        complete(res){
+                            //console.log('observer complete ,the res.key is: '+res.key);
+                            let domain;
+                            if(0==self.picServerConfig.bucketdomain.indexOf("http"))
+                            {
+                                domain=self.picServerConfig.bucketdomain;
+                            }
+                            else
+                            {
+                                domain=HTTP_PREFIX+self.picServerConfig.bucketdomain;
+                            }
+                            $('textarea').insertAtCaret('![]('+domain+"/"+res.key+')\r');//if use \r\n,will find it effect the following content
+                    //     PopUp.hide();
+                            window.updateData();
+                            self.CheckComplete();
+                           
+                        }
+                    }
+                    let putExtra = {
+                        fname: f.name,
+                        params: {"gary":"test"},
+                        mimeType:["image/png", "image/jpeg", "image/gif","image/jpg","image/bmp"]
+                    };
+                    let config = {
+                        useCdnDomain: false,
+                    };
+                    let token = QiniuUPToken(self.picServerConfig.accesskey, self.picServerConfig.secretkey, self.picServerConfig.bucketname)
+                //var observable = qiniu_js.upload(f, f.name, token, putExtra, config);
+                    let observable = qiniu_js.upload(f, null, token, putExtra, config);//当key为null时，返回的文件名为文件内容的hash值。
+                    let subscription = observable.subscribe(observer);
+                
+                if(haveCallError)
+                {
+                    imgInfo=UPLOAD_ERROR;
+                }
+                else
+                {
+                    imgInfo="正在上传图片......";
+                }
+
+                let picItemHtml=`<div class='picticItem'><img src=${imgSrc}></img><lable>${imgInfo}</lable></div>`;
+                
+                if(0==index)
+                {
+                    $('#global_popup .picItems').append(picItemHtml);
+                }
+                else
+                {
+                    $('#global_popup  .picItems').find(".picticItem").last().after(picItemHtml);   
+                
+                }
+                haveInsertDom=true;
+    }
    
 };
+
+
 
 //var observable = qiniu.upload(file, key, token, putExtra, config)
 //var subscription = observable.subscribe(observer) // 上传开始

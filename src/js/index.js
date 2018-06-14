@@ -39,7 +39,7 @@ var UploadImg=require("./uploadImg.js");
 //require("./google-code-prettify/run_prettify.js"); //Gary delete it,as it will go to download the  https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.css ,but will fail usually
 
 
-var DEMO_FILE='demo_v2_6_1.md';
+var DEMO_FILE='readme_v2_7_0.md';
 var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_6_0.css'
 var gCodeThemeIns;
 var gCssThemeIns;
@@ -156,7 +156,8 @@ function CssThemeCall()
 function start()
       {
          
-              
+              let editTimerId=null;
+              const UPDATE_EDIT_TIMER=200;
               window.converter =  new showdown.Converter({
               extensions: ['tasklist','footnote','katex-latex',figure,'showdown-toc'],
               tables: true,
@@ -218,8 +219,18 @@ function start()
         var iframeNode=win.document.body;
         $(iframeNode).on('input keydown paste', updateOutput);*/
              
-            $('#editor').on('input keydown paste', updateOutput);  
-           
+           // $('#editor').on('input keydown paste', updateOutput);  
+           $('#editor').on('paste', updateOutput);  
+           $('#editor').on('input keydown', function(){
+                if(editTimerId!=null)
+                {
+                    clearTimeout(editTimerId);
+                }        
+                editTimerId=setTimeout(function(){
+                    editTimerId=null;
+                    updateOutput();
+                },UPDATE_EDIT_TIMER);
+           });
            
            // window.onresize =DisplayWindowSize;
            // DisplayWindowSize();
@@ -349,6 +360,7 @@ function start()
 
 
 function updateOutput() {    
+    const AUTO_SAVE_TIME=2000;
         var editorVal=$('#editor').val();  
        
        /* var inputAscii;         
@@ -524,7 +536,9 @@ function updateOutput() {
                     {
                         if(window.saveEditData())
                         {
-                            $('#saveIndicate').html("已保存到：");
+                           
+                                $('#saveIndicate').html("已保存到：");
+                           
                         }
                         else
                         {
@@ -552,8 +566,9 @@ function updateOutput() {
 
                          });   */
                     
-              },2000);
+              },AUTO_SAVE_TIME);
         }
+       
       
      
 }

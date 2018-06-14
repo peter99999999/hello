@@ -1,5 +1,5 @@
 $PIC_BTN_BACKGROUND_COLOR:#00C853;
-.picture_popupContent,.picSettingContainer
+.picture_settingPopupContent,.picSettingContainer
 {
     display: flex;
     flex-direction:column;
@@ -11,7 +11,7 @@ $PIC_BTN_BACKGROUND_COLOR:#00C853;
     
 }
 
-.picture_popupContent
+.picture_settingPopupContent
 {
     width:800px;
 }
@@ -69,18 +69,45 @@ $PIC_BTN_BACKGROUND_COLOR:#00C853;
       margin-bottom: 40px;
   }
 
-  .picture_percentContent
+  .picture_popup_content
   {
-    width:600px;
+    width:400px;
     
   }
-  .picPercentId
+  .picItems
   {
-    width:600px;
+    width:100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
-    margin-left: 20px;
+    padding-left: 20px;
+    max-height:800px;
+    overflow:auto;
+  }
+
+  .picticItem
+  {
+      width:100%;
+      height:60px;
+      display: flex;
+      flex-direction: row;
+      flex-grow:0;
+      flex-shrink:0;
+   
+
+  }
+  .picticItem img
+  {
+      width:60px;
+      height: 60px;
+  }
+  .picticItem lable
+  {
+  /*   display: inline-block;  
+    vertical-align: middle; */
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
   }
 
   /* .savePicSetting

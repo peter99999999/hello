@@ -1,5 +1,6 @@
 var $ = require("jquery");
 var Cookie=require("../common/cookie.js");
+let popShowFlag=false;
 var PopUp = function () {
     
    
@@ -14,7 +15,7 @@ var PopUp = function () {
       Cookie.setCookie(window.VERSION_WARN_ID,"havedone",365);
       let strhtml=$("#version_popup").html();
       PopUp.showContent(strhtml);
-      $('.versionContentId').html("<strong>此版本已支持七牛云图床</strong><br/>选取本地图片后，会自动上传到七牛云，并在Md2All中自动插入相应markdown,显示图片。<ul>支持:<li>直接把图片拖拉到编辑框;</li><li>直接复制粘贴截图到编辑框;</li><li>或通过左上角“图片”图标选取图片!</li></ul>");
+      $('.versionContentId').html("<strong>此版本支持云图床功能</strong><br/>选取本地图片后，会自动上传到你的七牛云图床，并在Md2All中自动插入相应markdown,显示图片。<br/><a href='https://www.cnblogs.com/garyyan/p/9181809.html'>详细教程,请点击此链接查看</a>");
     }
    
 
@@ -24,13 +25,19 @@ var PopUp = function () {
   }
   PopUp.hide= function()
   {
+    popShowFlag=false;
     $("#global_popup .popup_conetent").html("");
     $("#global_popup").hide();
   }
   PopUp.showContent = function(content)
   {
+    popShowFlag=true;
     $("#global_popup .popup_conetent").html(content);
     $("#global_popup").show();
+  }
+  PopUp.isShow= function()
+  {
+    return popShowFlag;
   }
 
   module.exports = PopUp;

@@ -23,7 +23,8 @@ module.exports = {
      //target: 'electron-renderer',
      target: target,
      //target: 'node',
-     mode:"development",
+     //mode:"development",
+     mode:"production",
     entry: {
         index : './src/js/index.js'
     },
@@ -33,7 +34,7 @@ module.exports = {
         publicPath:'output/',//my_publicPath,
         filename: '[name].js'
     },
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map',
     //devtool: 'hidden-source-map',
     resolve:{
         alias: {
@@ -139,7 +140,7 @@ module.exports = {
             },
             { 
                 context: path.join(__dirname, './src'),
-                from: "demo*.md",
+                from: "readme*.md",
                 to: '../',
                 force: true
             },
