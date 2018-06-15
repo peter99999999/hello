@@ -20,6 +20,7 @@ var ColorApp= require("./color/colorApp.js");
 var ScrollSync= require("./ui/scrollsync.js");
 var WindowHandle= require("./ui/WindowHandle.js");
 var PopUp= require("./ui/popup.js");
+var Katex2img= require("./katex2img.js");
 var FileExplorer=null;
 if(ELECTRON_APP)
 {
@@ -184,7 +185,8 @@ function start()
                updateOutput();
           }});
              PopUp.init();
-            new UploadImg();
+         
+             new UploadImg();
             new ColorApp();
             gCodeThemeIns=new CodeTheme();
             gCssThemeIns=new CssTheme();
@@ -290,7 +292,8 @@ function start()
 
            $('#copy_btn').on("click",function()
            {
-              copy_trigger=true;
+            Katex2img.convert();  
+            copy_trigger=true;
            });
 
             $('#render_output_id').on("copy", function(e)

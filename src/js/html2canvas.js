@@ -1,6 +1,6 @@
 /*!
- * html2canvas 1.0.0-alpha.3 <https://html2canvas.hertzen.com>
- * Copyright (c) 2017 Niklas von Hertzen <https://hertzen.com>
+ * html2canvas 1.0.0-alpha.4 <https://html2canvas.hertzen.com>
+ * Copyright (c) 2018 Niklas von Hertzen <https://hertzen.com>
  * Released under MIT License
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -632,7 +632,7 @@ var SMALL_IMAGE = exports.SMALL_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAA
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.parseBackgroundImage = exports.parseBackground = exports.calculateBackgroundRepeatPath = exports.calculateBackgroundPosition = exports.calculateBackgroungPositioningArea = exports.calculateBackgroungPaintingArea = exports.calculateBackgroundSize = exports.BACKGROUND_ORIGIN = exports.BACKGROUND_CLIP = exports.BACKGROUND_SIZE = exports.BACKGROUND_REPEAT = undefined;
+exports.parseBackgroundImage = exports.parseBackground = exports.calculateBackgroundRepeatPath = exports.calculateBackgroundPosition = exports.calculateBackgroungPositioningArea = exports.calculateBackgroungPaintingArea = exports.calculateGradientBackgroundSize = exports.calculateBackgroundSize = exports.BACKGROUND_ORIGIN = exports.BACKGROUND_CLIP = exports.BACKGROUND_SIZE = exports.BACKGROUND_REPEAT = undefined;
 
 var _Color = __webpack_require__(0);
 
@@ -725,6 +725,14 @@ var calculateBackgroundSize = exports.calculateBackgroundSize = function calcula
     if (size[0].size === BACKGROUND_SIZE.AUTO) {
         width = height / image.height * image.width;
     }
+
+    return new _Size2.default(width, height);
+};
+
+var calculateGradientBackgroundSize = exports.calculateGradientBackgroundSize = function calculateGradientBackgroundSize(backgroundImage, bounds) {
+    var size = backgroundImage.size;
+    var width = size[0].value ? size[0].value.getAbsoluteValue(bounds.width) : bounds.width;
+    var height = size[1].value ? size[1].value.getAbsoluteValue(bounds.height) : size[0].value ? width : bounds.height;
 
     return new _Size2.default(width, height);
 };
@@ -1651,9 +1659,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Logger = function () {
-    function Logger(id, start) {
+    function Logger(enabled, id, start) {
         _classCallCheck(this, Logger);
 
+        this.enabled = enabled;
         this.start = start ? start : Date.now();
         this.id = id;
     }
@@ -1661,7 +1670,7 @@ var Logger = function () {
     _createClass(Logger, [{
         key: 'child',
         value: function child(id) {
-            return new Logger(id, this.start);
+            return new Logger(this.enabled, id, this.start);
         }
 
         // eslint-disable-next-line flowtype/no-weak-types
@@ -1669,7 +1678,7 @@ var Logger = function () {
     }, {
         key: 'log',
         value: function log() {
-            if (window.console && window.console.log) {
+            if (this.enabled && window.console && window.console.log) {
                 for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
                     args[_key] = arguments[_key];
                 }
@@ -1683,7 +1692,7 @@ var Logger = function () {
     }, {
         key: 'error',
         value: function error() {
-            if (window.console && window.console.error) {
+            if (this.enabled && window.console && window.console.error) {
                 for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
                     args[_key2] = arguments[_key2];
                 }
@@ -2359,7 +2368,7 @@ var loadSerializedSVG = exports.loadSerializedSVG = function loadSerializedSVG(s
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 exports.FontMetrics = undefined;
 
@@ -2372,76 +2381,76 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var SAMPLE_TEXT = 'Hidden Text';
 
 var FontMetrics = exports.FontMetrics = function () {
-    function FontMetrics(document) {
-        _classCallCheck(this, FontMetrics);
+        function FontMetrics(document) {
+                _classCallCheck(this, FontMetrics);
 
-        this._data = {};
-        this._document = document;
-    }
-
-    _createClass(FontMetrics, [{
-        key: '_parseMetrics',
-        value: function _parseMetrics(font) {
-            var container = this._document.createElement('div');
-            var img = this._document.createElement('img');
-            var span = this._document.createElement('span');
-
-            var body = this._document.body;
-            if (!body) {
-                throw new Error( true ? 'No document found for font metrics' : '');
-            }
-
-            container.style.visibility = 'hidden';
-            container.style.fontFamily = font.fontFamily;
-            container.style.fontSize = font.fontSize;
-            container.style.margin = '0';
-            container.style.padding = '0';
-
-            body.appendChild(container);
-
-            img.src = _Util.SMALL_IMAGE;
-            img.width = 1;
-            img.height = 1;
-
-            img.style.margin = '0';
-            img.style.padding = '0';
-            img.style.verticalAlign = 'baseline';
-
-            span.style.fontFamily = font.fontFamily;
-            span.style.fontSize = font.fontSize;
-            span.style.margin = '0';
-            span.style.padding = '0';
-
-            span.appendChild(this._document.createTextNode(SAMPLE_TEXT));
-            container.appendChild(span);
-            container.appendChild(img);
-            var baseline = img.offsetTop - span.offsetTop + 2;
-
-            container.removeChild(span);
-            container.appendChild(this._document.createTextNode(SAMPLE_TEXT));
-
-            container.style.lineHeight = 'normal';
-            img.style.verticalAlign = 'super';
-
-            var middle = img.offsetTop - container.offsetTop + 2;
-
-            body.removeChild(container);
-
-            return { baseline: baseline, middle: middle };
+                this._data = {};
+                this._document = document;
         }
-    }, {
-        key: 'getMetrics',
-        value: function getMetrics(font) {
-            var key = font.fontFamily + ' ' + font.fontSize;
-            if (this._data[key] === undefined) {
-                this._data[key] = this._parseMetrics(font);
-            }
 
-            return this._data[key];
-        }
-    }]);
+        _createClass(FontMetrics, [{
+                key: '_parseMetrics',
+                value: function _parseMetrics(font) {
+                        var container = this._document.createElement('div');
+                        var img = this._document.createElement('img');
+                        var span = this._document.createElement('span');
 
-    return FontMetrics;
+                        var body = this._document.body;
+                        if (!body) {
+                                throw new Error( true ? 'No document found for font metrics' : '');
+                        }
+
+                        container.style.visibility = 'hidden';
+                        container.style.fontFamily = font.fontFamily;
+                        container.style.fontSize = font.fontSize;
+                        container.style.margin = '0';
+                        container.style.padding = '0';
+
+                        body.appendChild(container);
+
+                        img.src = _Util.SMALL_IMAGE;
+                        img.width = 1;
+                        img.height = 1;
+
+                        img.style.margin = '0';
+                        img.style.padding = '0';
+                        img.style.verticalAlign = 'baseline';
+
+                        span.style.fontFamily = font.fontFamily;
+                        span.style.fontSize = font.fontSize;
+                        span.style.margin = '0';
+                        span.style.padding = '0';
+
+                        span.appendChild(this._document.createTextNode(SAMPLE_TEXT));
+                        container.appendChild(span);
+                        container.appendChild(img);
+                        var baseline = img.offsetTop - span.offsetTop + 2;
+
+                        container.removeChild(span);
+                        container.appendChild(this._document.createTextNode(SAMPLE_TEXT));
+
+                        container.style.lineHeight = 'normal';
+                        img.style.verticalAlign = 'super';
+
+                        var middle = img.offsetTop - container.offsetTop + 2;
+
+                        body.removeChild(container);
+
+                        return { baseline: baseline, middle: middle };
+                }
+        }, {
+                key: 'getMetrics',
+                value: function getMetrics(font) {
+                        var key = font.fontFamily + ' ' + font.fontSize;
+                        if (this._data[key] === undefined) {
+                                this._data[key] = this._parseMetrics(font);
+                        }
+
+                        return this._data[key];
+                }
+        }]);
+
+        return FontMetrics;
 }();
 
 /***/ }),
@@ -2544,11 +2553,11 @@ var html2canvas = function html2canvas(element, conf) {
     // eslint-disable-next-line no-console
     if ((typeof console === 'undefined' ? 'undefined' : _typeof(console)) === 'object' && typeof console.log === 'function') {
         // eslint-disable-next-line no-console
-        console.log('html2canvas ' + "1.0.0-alpha.3");
+        console.log('html2canvas ' + "1.0.0-alpha.4");
     }
 
     var config = conf || {};
-    var logger = new _Logger2.default();
+    var logger = new _Logger2.default(typeof config.logging === 'boolean' ? config.logging : true);
 
     if (true && typeof config.onrendered === 'function') {
         logger.error('onrendered option is deprecated, html2canvas returns a Promise with the canvas as the value');
@@ -2575,6 +2584,7 @@ var html2canvas = function html2canvas(element, conf) {
         async: true,
         allowTaint: false,
         imageTimeout: 15000,
+        logging: true,
         proxy: null,
         removeContainer: true,
         foreignObjectRendering: false,
@@ -4256,12 +4266,8 @@ var Renderer = function () {
             container.style.background.backgroundImage.slice(0).reverse().forEach(function (backgroundImage) {
                 if (backgroundImage.source.method === 'url' && backgroundImage.source.args.length) {
                     _this3.renderBackgroundRepeat(container, backgroundImage);
-                } else {
-                    var _gradient = (0, _Gradient.parseGradient)(backgroundImage.source, container.bounds);
-                    if (_gradient) {
-                        var _bounds = container.bounds;
-                        _this3.target.renderLinearGradient(_bounds, _gradient);
-                    }
+                } else if (/gradient/i.test(backgroundImage.source.method)) {
+                    _this3.renderBackgroundGradient(container, backgroundImage);
                 }
             });
         }
@@ -4278,6 +4284,19 @@ var Renderer = function () {
                 var _offsetX = Math.round(backgroundPositioningArea.left + position.x);
                 var _offsetY = Math.round(backgroundPositioningArea.top + position.y);
                 this.target.renderRepeat(_path, image, backgroundImageSize, _offsetX, _offsetY);
+            }
+        }
+    }, {
+        key: 'renderBackgroundGradient',
+        value: function renderBackgroundGradient(container, background) {
+            var backgroundPositioningArea = (0, _background.calculateBackgroungPositioningArea)(container.style.background.backgroundOrigin, container.bounds, container.style.padding, container.style.border);
+            var backgroundImageSize = (0, _background.calculateGradientBackgroundSize)(background, backgroundPositioningArea);
+            var position = (0, _background.calculateBackgroundPosition)(background.position, backgroundImageSize, backgroundPositioningArea);
+            var gradientBounds = new _Bounds.Bounds(Math.round(backgroundPositioningArea.left + position.x), Math.round(backgroundPositioningArea.top + position.y), backgroundImageSize.width, backgroundImageSize.height);
+
+            var gradient = (0, _Gradient.parseGradient)(background.source, gradientBounds);
+            if (gradient) {
+                this.target.renderLinearGradient(gradientBounds, gradient);
             }
         }
     }, {
@@ -4473,7 +4492,7 @@ var parseGradient = exports.parseGradient = function parseGradient(_ref, bounds)
         prefix = _ref.prefix;
 
     if (method === 'linear-gradient') {
-        return parseLinearGradient(args, bounds);
+        return parseLinearGradient(args, bounds, !!prefix);
     } else if (method === 'gradient' && args[0] === 'linear') {
         // TODO handle correct angle
         return parseLinearGradient(['to bottom'].concat(args.slice(3).map(function (color) {
@@ -4484,15 +4503,17 @@ var parseGradient = exports.parseGradient = function parseGradient(_ref, bounds)
         // $FlowFixMe
         .map(function (v) {
             return v[2];
-        })), bounds);
+        })), bounds, !!prefix);
     }
 };
 
-var parseLinearGradient = function parseLinearGradient(args, bounds) {
+var parseLinearGradient = function parseLinearGradient(args, bounds, hasPrefix) {
     var angle = (0, _Angle.parseAngle)(args[0]);
     var HAS_SIDE_OR_CORNER = SIDE_OR_CORNER.test(args[0]);
     var HAS_DIRECTION = HAS_SIDE_OR_CORNER || angle !== null || PERCENTAGE_ANGLES.test(args[0]);
-    var direction = HAS_DIRECTION ? angle !== null ? calculateGradientDirection(angle, bounds) : HAS_SIDE_OR_CORNER ? parseSideOrCorner(args[0], bounds) : parsePercentageAngle(args[0], bounds) : calculateGradientDirection(Math.PI, bounds);
+    var direction = HAS_DIRECTION ? angle !== null ? calculateGradientDirection(
+    // if there is a prefix, the 0° angle points due East (instead of North per W3C)
+    hasPrefix ? angle - Math.PI * 0.5 : angle, bounds) : HAS_SIDE_OR_CORNER ? parseSideOrCorner(args[0], bounds) : parsePercentageAngle(args[0], bounds) : calculateGradientDirection(Math.PI, bounds);
     var colorStops = [];
     var firstColorStopIndex = HAS_DIRECTION ? 1 : 0;
 
@@ -4824,6 +4845,7 @@ var DocumentCloner = exports.DocumentCloner = function () {
                         backgroundColor: '#ffffff',
                         canvas: null,
                         imageTimeout: _this3.options.imageTimeout,
+                        logging: _this3.options.logging,
                         proxy: _this3.options.proxy,
                         removeContainer: _this3.options.removeContainer,
                         scale: _this3.options.scale,
@@ -4975,7 +4997,13 @@ var cloneCanvasContents = function cloneCanvasContents(canvas, clonedCanvas) {
         if (clonedCanvas) {
             clonedCanvas.width = canvas.width;
             clonedCanvas.height = canvas.height;
-            clonedCanvas.getContext('2d').putImageData(canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height), 0, 0);
+            var ctx = canvas.getContext('2d');
+            var clonedCtx = clonedCanvas.getContext('2d');
+            if (ctx) {
+                clonedCtx.putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0, 0);
+            } else {
+                clonedCtx.drawImage(canvas, 0, 0);
+            }
         }
     } catch (e) {}
 };
@@ -5195,12 +5223,8 @@ var ResourceLoader = function () {
                 return src;
             }
 
-            if (isSVG(src)) {
-                if (this.options.allowTaint === true || _Feature2.default.SUPPORT_SVG_DRAWING) {
-                    return this.addImage(src, src, false);
-                }
-            } else {
-                if (this.options.allowTaint === true || isInlineBase64Image(src) || this.isSameOrigin(src)) {
+            if (!isSVG(src) || _Feature2.default.SUPPORT_SVG_DRAWING) {
+                if (this.options.allowTaint === true || isInlineImage(src) || this.isSameOrigin(src)) {
                     return this.addImage(src, src, false);
                 } else if (!this.isSameOrigin(src)) {
                     if (typeof this.options.proxy === 'string') {

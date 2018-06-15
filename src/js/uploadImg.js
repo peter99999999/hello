@@ -261,7 +261,8 @@ UploadImg.prototype.Upload = function (files,self) {
 
                 let picItemHtml=`<div class='picticItem'><img src=${imgSrc}></img><lable>${imgInfo}</lable></div>`;
                 
-                if(0==index)
+                $('#global_popup .picItems').append(picItemHtml);
+               /*  if(0==index)
                 {
                     $('#global_popup .picItems').append(picItemHtml);
                 }
@@ -269,7 +270,7 @@ UploadImg.prototype.Upload = function (files,self) {
                 {
                     $('#global_popup  .picItems').find(".picticItem").last().after(picItemHtml);   
                 
-                }
+                } */
                 haveInsertDom=true;
     }
    

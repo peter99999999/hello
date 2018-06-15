@@ -56,7 +56,8 @@ const getConfig = () => ({
     { left: "$$", right: "$$", display: true },
     { left: "\\[", right: "\\]", display: true },
     { left: "\\(", right: "\\)", display: false },
-    { left: "$", right: "$", display: false },//gary add
+    //{ left: "$", right: "$", display: false },//gary add
+    { left: "$", right: "$", display: true },//gary add
     //{ left: '~', right: '~', display: false, asciimath: true },//gary delete
     //{ left: '&&', right: '&&', display: true, asciimath: true },//gary delete
   ]),
