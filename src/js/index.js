@@ -28,7 +28,7 @@ if(ELECTRON_APP)
 }
 var LocalStore=require("./common/localstore.js");
 window.showdown=showdown;
-require("./showdown-plugins/katex/katex-latex.js");
+//require("./showdown-plugins/katex/katex-latex.js");
 //require("./showdown-plugins/showdown-prettify-for-wechat.js");
 require("./showdown-plugins/showdown-github-task-list.js");
 require("./showdown-plugins/showdown-footnote.js");
@@ -101,6 +101,22 @@ window.updateEditData=function(data)
     updateOutput(); 
 }
 
+function setClipboard(e)
+{
+    var result=GetInlineCssHtmlOutput();
+    copy_trigger=false;               
+   var clipboardData = e.originalEvent.clipboardData||e.clipboardData||window.clipboardData;
+   var html=result;
+   var text=result;
+   html=html.substr("<div".length,html.length-"<div".length);
+   html=html.substr(0,html.length-"</div>".length);
+   html="<section "+html+"</section>";
+
+   html=html.replace(/<a href="#/g, '<a href="');//as the weixin don't support the start with:href="#,and handle it specially
+   clipboardData.setData("text/html", html);
+   clipboardData.setData("text/plain", text);
+}
+
 function DelKateInvalidInfo()
 {
     $('#render_output_id .katex-mathml').each(function() {
@@ -157,10 +173,20 @@ function CssThemeCall()
 function start()
       {
          
-              let editTimerId=null;
+        let testRam= "a\tb";
+        let testRamB= "a\\tb";
+        console.log(String.raw`${testRam}`);      
+           console.log(`${testRam}`);
+           console.log(String.raw`a\tb`);
+           console.log("a\tb");
+           console.log("a\\tb");
+         
+
+        let editTimerId=null;
               const UPDATE_EDIT_TIMER=200;
               window.converter =  new showdown.Converter({
-              extensions: ['tasklist','footnote','katex-latex',figure,'showdown-toc'],
+              //extensions: ['tasklist','footnote','katex-latex',figure,'showdown-toc'],
+              extensions: ['tasklist','footnote',figure,'showdown-toc'],
               tables: true,
               simpleLineBreaks:true,
               literalMidWordUnderscores:true,//要打开此选项，否则，有些数学公式如：$H(D_2) = -(\frac{2}{4}\ log_2 \frac{2}{4} + \frac{2}{4}\ log_2 \frac{2}{4}) = 1$，会显示不出来
@@ -289,10 +315,10 @@ function start()
               
               gCssThemeIns.closeWindow();
            });
-
+         
            $('#copy_btn').on("click",function()
            {
-            Katex2img.convert();  
+            Katex2img.convert(); 
             copy_trigger=true;
            });
 
@@ -300,19 +326,7 @@ function start()
           {
              if(copy_trigger)
              {
-                 var result=GetInlineCssHtmlOutput();
-                 copy_trigger=false;               
-                var clipboardData = e.originalEvent.clipboardData||e.clipboardData||window.clipboardData;
-                var html=result;
-                var text=result;
-                html=html.substr("<div".length,html.length-"<div".length);
-                html=html.substr(0,html.length-"</div>".length);
-                html="<section "+html+"</section>";
-
-                html=html.replace(/<a href="#/g, '<a href="');//as the weixin don't support the start with:href="#,and handle it specially
-                clipboardData.setData("text/html", html);
-                clipboardData.setData("text/plain", text);
-                //window.showSuccessMessage("\u5df2\u6210\u529f\u590d\u5236\u5230\u526a\u5207\u677f");
+               setClipboard(e);
                 return e.preventDefault();
               }
           }); 

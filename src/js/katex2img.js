@@ -25,7 +25,7 @@ Katex2Img.convert=function()
                     //document.getElementById("test1_html2canvasoutput_img").src=dataURL;
                     var html=`<img src=${dataURL}>`
                     $(self).html(html);
-                
+                   
                 });
             }
         })

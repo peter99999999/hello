@@ -65,10 +65,25 @@ const getConfig = () => ({
 
 // is katex.config is undefined, it is an empty object
 window.katex.config = window.katex.config || {};
-
+//¨D
 const katexLatex = () => {
   return [
     {
+      type: 'lang',
+      filter:  function filter(text, converter, options) {
+         // ... do stuff to text ...
+         //let regularEx=/¨D¨D(.*?)¨D¨D/g;
+         let regularEx=/¨D¨D([\d\D]*?)¨D¨D/g;
+         const div = document.createElement('div');
+         return text.replace(regularEx, function (str, katexStr) {
+            window.katex.render(katexStr,div);
+            return div.innerHTML;
+         });
+         
+      }
+    }
+ /*
+    {//this for asciimath
       type: 'output',
       filter: (text = '') => {
         const config = getConfig();
@@ -81,26 +96,35 @@ const katexLatex = () => {
             'g',
           );
 
-/*gary delete
-          return acc.replace(test, (match, capture) =>
-            `${delimiter.left}${asciimathToTex(capture)}${delimiter.right}`
-          );
-*/
+//gary delete
+//          return acc.replace(test, (match, capture) =>
+//            `${delimiter.left}${asciimathToTex(capture)}${delimiter.right}`
+//          );
+
         }, text);
 
       },
     },
-    {
+*/
+/* 
+{
       type: 'output',
       filter: html => {
         const config = getConfig();
         //parse html inside a <div>
         const div = document.createElement('div');
+        const regularExt=/\\(\W)/g;
+        html=html.replace(regularExt,function(str,word)
+      {
+        return "\\\\"+word;
+      });
+      const regularExt_2=/<br \/>/g;
+      html=html.replace(regularExt_2," ");
         div.innerHTML = html;
 
         //find our "code"
         const latex = div.querySelectorAll('code.latex.language-latex');
-        const asciimath = div.querySelectorAll('code.asciimath.language-asciimath');
+    //    const asciimath = div.querySelectorAll('code.asciimath.language-asciimath');//gary delete
 
         renderElements(latex, config);
       //  renderElements(asciimath, config, true);//gary delete
@@ -112,6 +136,7 @@ const katexLatex = () => {
         return div.innerHTML;
       }
     },
+*/
   ];
 }
 

@@ -236,7 +236,6 @@ module.exports = listen;
 },{"./is":3,"delegate":2}],5:[function(require,module,exports){
 function select(element) {
     var selectedText;
-
     if (element.nodeName === 'SELECT') {
         element.focus();
 

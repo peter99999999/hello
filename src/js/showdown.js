@@ -1,4 +1,8 @@
 ;/*! showdown v 1.8.6 - 22-12-2017 */
+//gary add
+import katex from './showdown-plugins/katex/katex.min';
+window.katex=katex;
+
 (function(){
 /**
  * Created by Tivie on 13-07-2015.
@@ -2833,6 +2837,9 @@ showdown.subParser('blockGamut', function (text, options, globals) {
 
   text = showdown.subParser('lists')(text, options, globals);
   text = showdown.subParser('codeBlocks')(text, options, globals);
+  text = showdown.subParser('codeSpans')(text, options, globals); //gary update it's place
+  text = showdown.subParser('katex_block_gary')(text, options, globals);
+  text = showdown.subParser('katex_span_gary')(text, options, globals);
   text = showdown.subParser('tables')(text, options, globals);
 
   // We already ran _HashHTMLBlocks() before, in Markdown(), but that
@@ -2842,8 +2849,31 @@ showdown.subParser('blockGamut', function (text, options, globals) {
   text = showdown.subParser('hashHTMLBlocks')(text, options, globals);
   text = showdown.subParser('paragraphs')(text, options, globals);
 
+  
+
   text = globals.converter._dispatch('blockGamut.after', text, options, globals);
 
+  return text;
+});
+
+showdown.katexConver=function(regularEx,text)
+{
+  const div = document.createElement('div');
+  text= text.replace(regularEx, function (str, katexStr) {
+    window.katex.render(katexStr,div);
+    return `<span class="katex-display">${div.innerHTML}</span>`;
+ });
+ return text;
+}
+showdown.subParser('katex_block_gary', function (text, options, globals) {//gary add
+  let regularEx=/¨D¨D([\d\D]*?)¨D¨D/g;
+  text=showdown.katexConver(regularEx,text);
+  return text;
+});
+
+showdown.subParser('katex_span_gary', function (text, options, globals) {//gary add
+  let regularEx=/¨D([\d\D]*?)¨D/g;
+  text=showdown.katexConver(regularEx,text);
   return text;
 });
 
@@ -4181,7 +4211,7 @@ showdown.subParser('spanGamut', function (text, options, globals) {
   'use strict';
 
   text = globals.converter._dispatch('spanGamut.before', text, options, globals);
-  text = showdown.subParser('codeSpans')(text, options, globals);
+  //text = showdown.subParser('codeSpans')(text, options, globals); //gary update it's place
   text = showdown.subParser('escapeSpecialCharsWithinTagAttributes')(text, options, globals);
   text = showdown.subParser('encodeBackslashEscapes')(text, options, globals);
 
