@@ -40,7 +40,7 @@ var UploadImg=require("./uploadImg.js");
 //require("./google-code-prettify/run_prettify.js"); //Gary delete it,as it will go to download the  https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.css ,but will fail usually
 
 
-var DEMO_FILE='readme_v2_7_0.md';
+var DEMO_FILE='readme_v2_8_0.md';
 var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_6_0.css'
 var gCodeThemeIns;
 var gCssThemeIns;
@@ -60,7 +60,8 @@ window.OUTPUT_WRAPPER_ID="output_wrapper_style";
 window.CODE_THEME_ID='code_theme';
 window.CODE_SIZE_ID='code_size';
 window.MY_CSS_ID="mycss";
-window.VERSION_WARN_ID="versionwarn";
+window.VERSION_WARN_ID_PRE="versionwarn";
+window.VERSION_WARN_ID="versionwarn_V2_8_0";
 
 //var PageTheme = require("./theme/page-theme");
 var hljs = require("./highlight/highlight.pack.js");
@@ -82,9 +83,9 @@ var SAVE_TEXT_COOKIE_NAME='SAVE_TEXT_COOKIE_NAME'
 window.output_wrapper_css_ext1=' .output_wrapper pre code{font-family: Consolas, Inconsolata, Courier, monospace; display: block !important; white-space: pre !important; word-wrap: normal !important; word-break: normal !important;  overflow: auto !important;} ';
 window.output_wrapper_css_ext2=' .output_wrapper pre code *{word-wrap: inherit !important; word-break: inherit !important;} ';
 
-window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:super; }';
+//window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:super; }';
 //window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:middle; }; .katex .msupsub .vlist span .mathrm{display: inline-block;height: 0;position: static;vertical-align:super; }; .katex .msupsub .vlist span .mathit{display: inline-block;height: 0;position: static;vertical-align:sub; } ';
-//window.output_wrapper_css_katex_ext='';
+window.output_wrapper_css_katex_ext='';
 window.updateData=function(data)
 {
     updateOutput(); 
@@ -324,7 +325,7 @@ function start()
 
             $('#render_output_id').on("copy", function(e)
           {
-             if(copy_trigger)
+            if(copy_trigger)
              {
                setClipboard(e);
                 return e.preventDefault();
@@ -586,7 +587,7 @@ function updateOutput() {
               },AUTO_SAVE_TIME);
         }
        
-      
+        //Katex2img.convert(); 
      
 }
 

@@ -2838,6 +2838,7 @@ showdown.subParser('blockGamut', function (text, options, globals) {
   text = showdown.subParser('lists')(text, options, globals);
   text = showdown.subParser('codeBlocks')(text, options, globals);
   text = showdown.subParser('codeSpans')(text, options, globals); //gary update it's place
+ 
   text = showdown.subParser('katex_block_gary')(text, options, globals);
   text = showdown.subParser('katex_span_gary')(text, options, globals);
   text = showdown.subParser('tables')(text, options, globals);
@@ -2856,24 +2857,38 @@ showdown.subParser('blockGamut', function (text, options, globals) {
   return text;
 });
 
-showdown.katexConver=function(regularEx,text)
+showdown.katexConver=function(regularEx,text,isLine)
 {
-  const div = document.createElement('div');
+  
   text= text.replace(regularEx, function (str, katexStr) {
-    window.katex.render(katexStr,div);
-    return `<span class="katex-display">${div.innerHTML}</span>`;
+    let html="";
+    try
+    {
+      katexStr = katexStr.replace(/¨D/g, '$');
+      html=window.katex.renderToString(katexStr,{displayMode: true});
+     /*  if(!isLine)
+      {
+        html=`<span class="katex-display">${html}</span>`
+      } */
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+    return html;
+   
  });
  return text;
 }
 showdown.subParser('katex_block_gary', function (text, options, globals) {//gary add
   let regularEx=/¨D¨D([\d\D]*?)¨D¨D/g;
-  text=showdown.katexConver(regularEx,text);
+  text=showdown.katexConver(regularEx,text,false);
   return text;
 });
 
 showdown.subParser('katex_span_gary', function (text, options, globals) {//gary add
   let regularEx=/¨D([\d\D]*?)¨D/g;
-  text=showdown.katexConver(regularEx,text);
+  text=showdown.katexConver(regularEx,text,true);
   return text;
 });
 

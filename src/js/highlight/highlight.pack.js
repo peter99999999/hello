@@ -555,7 +555,7 @@
     var second_best = result;
     languageSubset.filter(getLanguage).forEach(function(name) {
       var current = highlight(name, text, false);
-     current.value=current.value.replace(/\n+/g, '<br />'); //Gary update，use the <br/> to replace the \n,otherwise the display in WeiXin ,the lines may display error
+    // current.value=current.value.replace(/\n/g, '<br />'); //Gary update，use the <br/> to replace the \n,otherwise the display in WeiXin ,the lines may display error
       current.language = name;
       if (current.relevance > second_best.relevance) {
         second_best = current;

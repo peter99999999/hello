@@ -21,10 +21,12 @@ Katex2Img.convert=function()
             {
                 html2canvas($(this)[0]).then(function(canvas) {
                     //document.body.appendChild(canvas);
-                    var dataURL = canvas.toDataURL();
+                    let dataURL = canvas.toDataURL();
                     //document.getElementById("test1_html2canvasoutput_img").src=dataURL;
-                    var html=`<img src=${dataURL}>`
+                    let html=`<img src=${dataURL}>`
                     $(self).html(html);
+                   // document.execCommand('copy');
+                   // $('#copy_btn').click();
                    
                 });
             }
