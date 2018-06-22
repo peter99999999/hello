@@ -5,7 +5,7 @@ require('../css/main.scss');
 
 
 
-require('../css/output_wrapper.css');
+//require('../css/output_wrapper.css');
 //var $=JQUERY;
 var $ = require("jquery");
 var showdown = require("./showdown.js");
@@ -41,7 +41,7 @@ var UploadImg=require("./uploadImg.js");
 
 
 var DEMO_FILE='readme_v2_8_0.md';
-var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_6_0.css'
+var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_8_1.css'
 var gCodeThemeIns;
 var gCssThemeIns;
 var gHtml=false;

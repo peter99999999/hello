@@ -9,8 +9,8 @@
 Markdown排版利器，支持 **"一键排版"** 、自定义css、80多种代码高亮。
 能让Markdown内容，无需作任何调整就能**一键复制**到微信公众号、博客园、掘金、知乎、csdn、51cto、wordpress、hexo。。。等平台。
 支持把图片自动上传到云图床;支持Latex数学公式在各平台正确显示。
-####完整教程
-[Md2All完整教程请参考：https://www.cnblogs.com/garyyan/p/8329343.html](https://www.cnblogs.com/garyyan/p/8329343.html )
+####详细教程
+[Md2All详细教程,请参考：https://www.cnblogs.com/garyyan/p/8329343.html](https://www.cnblogs.com/garyyan/p/8329343.html )
 
 ###对公众号、博客的优化
 支持代码块，并解决常见的代码块换行不正确,特别是iPone、iPad上不能滚动的问题;
@@ -66,6 +66,25 @@ function DisplayWindowSize(){
 Md2All支持云图床，设置好云图床后，能把本地图片自动上传到云图床，并自动生成markdown.
 [请参考云图床教程:https://www.cnblogs.com/garyyan/p/9181809.html](https://www.cnblogs.com/garyyan/p/9181809.html)
 
+###Latex数学公式(能正确复制到公众号等平台）:
+####行内公式：
+是的，我就是行内公式：$e^{x^2}\neq{e^x}^2$，排得OK吗？
+####块公式：
+$$e^{x^2}\neq{e^x}^2$$
+来个 *"复杂点"* 的:
+$$H(D_2) = -(\frac{2}{4}\ log_2 \frac{2}{4} + \frac{2}{4}\ log_2 \frac{2}{4}) = 1$$
+矩阵：
+$$
+        \begin{pmatrix}
+        1 & a_1 & a_1^2 & \cdots & a_1^n \\
+        1 & a_2 & a_2^2 & \cdots & a_2^n \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & a_m & a_m^2 & \cdots & a_m^n \\
+        \end{pmatrix}
+$$
+对应的css样式为：`.katex-display`
+####Latex复制到各平台的特别说明
+如果想把Latex公式复制到其它平台，请在点”复制“选定所有的内容后，再点一次”复制“
 ###Tips
 ####自动保存
 请点击左上角"编辑"图标再开始写作，这样就能自动保存写作内容，目前，所有保存的内容都是储存在本地浏览器缓存中(local storage)，所以,就算重新开机，这些内容都不会丢失的呵，但为了安全起见，在未实现帐号云同步功能前，请自行备份重要内容; 
@@ -135,23 +154,7 @@ Md2All支持云图床，设置好云图床后，能把本地图片自动上传�
 - [ ] 任务3，未完成; 
 
 
-####Latex数学公式(能正确复制到公众号等平台）:
 
-$$e^{x^2}\neq{e^x}^2$$
-来个 *"复杂点"* 的:
-$$H(D_2) = -(\frac{2}{4}\ log_2 \frac{2}{4} + \frac{2}{4}\ log_2 \frac{2}{4}) = 1$$
-矩阵：
-$$
-        \begin{pmatrix}
-        1 & a_1 & a_1^2 & \cdots & a_1^n \\
-        1 & a_2 & a_2^2 & \cdots & a_2^n \\
-        \vdots & \vdots & \vdots & \ddots & \vdots \\
-        1 & a_m & a_m^2 & \cdots & a_m^n \\
-        \end{pmatrix}
-$$
-对应的css样式为：`.katex-display`
-#####Latex复制到各平台的特别说明
-如果想把Latex公式复制到其它平台，请在点”复制“选定所有的内容后，再点一次”复制“
 
 
 

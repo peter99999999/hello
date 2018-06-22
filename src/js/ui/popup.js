@@ -1,6 +1,16 @@
 var $ = require("jquery");
 var Cookie=require("../common/cookie.js");
 let popShowFlag=false;
+ const COPY_POPUP=`  
+<div class="copyPopupContent common_pop">
+    <div class="closePopupContainerId">
+        <span class="icon_class  close_popup_icon close_popup_id" ></span>
+    </div>
+    <div class="copyPopupContentId">           
+    </div>
+</div>
+</div>`;
+
 var PopUp = function () {
     
    
@@ -39,6 +49,13 @@ var PopUp = function () {
   PopUp.isShow= function()
   {
     return popShowFlag;
+  }
+  PopUp.showCopyPopupContent= function(content)
+  {
+    popShowFlag=true;
+    $("#global_popup .popup_conetent").html(COPY_POPUP);
+    $('.copyPopupContentId').html(content);
+    $("#global_popup").show();
   }
 
   module.exports = PopUp;

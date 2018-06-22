@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax TeX Test Page</title>
+<!-- Copyright (c) 2010-2018 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<link rel="stylesheet" href="./katex/katex.css">
+<script src="./katex/katex.js" ></script>
+<!-- 
+<script type="text/javascript" src="./canvg/rgbcolor.js"></script> 
+
+ <script type="text/javascript" src="./canvg/StackBlur.js"></script>
+ -->
+<script src="./canvg/canvg.js" ></script> 
+<!-- <script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>  -->
+<script src="../jquery-3.1.1.js" ></script>
+</head>
+<body>
+  <textarea id="inputTex" style="width:500px;height:500px">
+
+  </textarea>
+  <button onclick="katex_render()">click</button>
+ <div id="katex_render"></div>
+   
+   <canvas id="katex_svg2canvas" width="100px" height="50px" ></canvas>
+ 
+<script>
+  function katex_render()
+  {
+    var inputValue=document.getElementById("inputTex").value;
+    var element=document.getElementById("katex_render");
+     katex.render(inputValue, element,{ displayMode: true});
+     /* var imgs = Array.from(document.querySelectorAll('svg'));
+     for(var i=0;i<imgs.length;i++)
+     {
+
+     } */
+   //var svghtml='<svg width="400em" height="1em"><text x="50" y="50">Hello World!</text></svg>';
+   var svghtml='<svg width="502px" height="201px"><text x="50" y="50">Hello World!</text></svg>';
+  /*    <svg>
+  <line x1="0"  y1="10" x2="0"   y2="100" style="stroke:#006600;"/>
+  <line x1="10" y1="10" x2="100" y2="100" style="stroke:#006600;"/>
+  <line x1="20" y1="10" x2="100" y2="50"  style="stroke:#006600;"/>
+  <line x1="30" y1="10" x2="110" y2="10"  style="stroke:#006600;"/>
+</svg> */
+    $('svg').each(function() {
+     // var svghtml=$(this).parent().html().trim();
+      var width=$(this).width();
+      var height=$(this).height();
+      width=""+width+"px";
+      height=""+height+"px";
+      $(this).width(width);
+      $(this).height(height);
+    //  var svghtml=$(this).parent().html().trim();
+    //  $("#katex_svg2canvas").width(width)  ;
+    //  $("#katex_svg2canvas").height(height)  ;
+            
+    //    canvg($("#katex_svg2canvas")[0],svghtml )
+
+    var xml = (new XMLSerializer()).serializeToString(this);
+    //xml=`<svg><text x="50" y="50">Hello World!</text></svg>`;
+    // Removing the name space as IE throws an error
+    xml = xml.replace(/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/, '');
+    //draw the SVG onto a canvas
+    var canvas = document.createElement("canvas");
+     canvas.className = "screenShotTempCanvas";
+    canvg(canvas, xml);
+    $(canvas).insertAfter(this);
+    $(this).hide();
+
+    /*     var canvas, xml;
+    canvas = document.createElement("canvas");
+    canvas.className = "screenShotTempCanvas";
+    //convert SVG into a XML string
+    xml = (new XMLSerializer()).serializeToString(this);
+    //xml=`<svg><text x="50" y="50">Hello World!</text></svg>`;
+    // Removing the name space as IE throws an error
+    xml = xml.replace(/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/, '');
+    //draw the SVG onto a canvas
+    canvg(canvas, xml);
+    $(canvas).insertAfter(this);
+    $(this).hide(); */
+     });
+  }
+
+</script>
+
+</body>
+</html>

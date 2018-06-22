@@ -2865,7 +2865,14 @@ showdown.katexConver=function(regularEx,text,isLine)
     try
     {
       katexStr = katexStr.replace(/¨D/g, '$');
-      html=window.katex.renderToString(katexStr,{displayMode: true});
+      if(isLine)
+      {
+        html=window.katex.renderToString(katexStr);
+      }
+      else
+      {
+        html=window.katex.renderToString(katexStr,{displayMode: true});
+      }
      /*  if(!isLine)
       {
         html=`<span class="katex-display">${html}</span>`
@@ -2874,6 +2881,7 @@ showdown.katexConver=function(regularEx,text,isLine)
     catch(error)
     {
       console.log(error);
+      html="<pre><code>不能识别此Latex公式:\n"+katexStr+"</pre></code>"
     }
     return html;
    
