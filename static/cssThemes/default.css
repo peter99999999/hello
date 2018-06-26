@@ -199,9 +199,27 @@ table tr th {
 
 
 
-.katex-display {/*<span  class="css_edit_note">数学公式</span>*/
-  font-size:1.5em;
+/*<span  class="css_edit_note">================数学公式开始================</span>*/
+.katex-display {/*<span  class="css_edit_note">块公式</span>*/
+  font-size:1.5em; 
 }
+.katex
+{/*<span  class="css_edit_note">行内公式，块公式</span>*/
+  padding:8px;
+  font-size:1.2em;
+}
+.katex-display > .katex
+{/*<span  class="css_edit_note">块公式</span>*/
+   display:inline-block;
+   text-align:center;
+   padding:3px;
+}
+.katex img
+{/*<span  class="css_edit_note">行内公式对应的图片</span>*/
+  display:inline-block;
+  vertical-align:middle;
+}
+/*<span  class="css_edit_note">================数学公式结束================</span>*/
 
 a[href^="#"] sup
 {/*<span  class="css_edit_note">注脚</span>*/
