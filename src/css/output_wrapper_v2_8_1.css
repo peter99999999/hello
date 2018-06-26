@@ -957,7 +957,7 @@ color:#006064;
 .katex .svg-align {
   text-align: left;
 }
-.katex svg {
+.katex svg ,.screenShotTempCanvas{
   display: block;
   position: absolute;
   width: 100%;

@@ -1,5 +1,5 @@
 git status
 git add -A
-git commit -m "want to svg convert to canvas before the katex convert to canvas,but find some svg convert to canvas have problem ,checking \n"
+git commit -m "update to v2_8_1,for katex mainly"
 git push
 pause

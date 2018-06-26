@@ -40,7 +40,7 @@ var UploadImg=require("./uploadImg.js");
 //require("./google-code-prettify/run_prettify.js"); //Gary delete it,as it will go to download the  https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.css ,but will fail usually
 
 
-var DEMO_FILE='readme_v2_8_0.md';
+var DEMO_FILE='readme_v2_8_1.md';
 var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_8_1.css'
 var gCodeThemeIns;
 var gCssThemeIns;
@@ -60,8 +60,9 @@ window.OUTPUT_WRAPPER_ID="output_wrapper_style";
 window.CODE_THEME_ID='code_theme';
 window.CODE_SIZE_ID='code_size';
 window.MY_CSS_ID="mycss";
-window.VERSION_WARN_ID_PRE="versionwarn";
-window.VERSION_WARN_ID="versionwarn_V2_8_0";
+window.VERSION_WARN_ID_PRE="versionwarn_V2_8_0";
+window.VERSION_WARN_ID="versionwarn";
+window.CUR_VER="V2_8_1";
 
 //var PageTheme = require("./theme/page-theme");
 var hljs = require("./highlight/highlight.pack.js");

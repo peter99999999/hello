@@ -1,4 +1,4 @@
- @font-face {
+@font-face {
   font-family: 'KaTeX_AMS';
   src: url(fonts/KaTeX_AMS-Regular.woff2) format('woff2'), url(fonts/KaTeX_AMS-Regular.woff) format('woff'), url(fonts/KaTeX_AMS-Regular.ttf) format('truetype');
   font-weight: normal;
@@ -118,7 +118,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @media screen {
   .katex .mtable .vertical-separator {
     min-width: 1px;
@@ -131,7 +130,7 @@
   .katex .rule {
     min-height: 1px;
   }
-} 
+}
 .katex-display {
   display: block;
   margin: 1em 0;

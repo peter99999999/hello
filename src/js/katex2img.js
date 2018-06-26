@@ -29,7 +29,8 @@ Katex2Img.convert=function()
             let self=this;
             let imgDom=$(this).children("img");
            
-            if (isChrome){ 
+           // if (isChrome)
+            { 
                 $(this).find('svg').each(function() {//svg convert to canvas
                     var orin_xml = (new XMLSerializer()).serializeToString(this);
                     var width=$(this).width();
@@ -63,14 +64,15 @@ Katex2Img.convert=function()
                 }
                 html2canvas($(this)[0]).then(function(canvas) {
                     //document.body.appendChild(canvas);
+                    //let dataURL = canvas.toDataURL("image/png",1.0);
                     let dataURL = canvas.toDataURL();
                     //document.getElementById("test1_html2canvasoutput_img").src=dataURL;
-                    let html=`<img src=${dataURL}>`
+                    let html=`<img src=${dataURL} >`
                     $(self).html(html);
                     renderCompleteKatexCount++;
                     if(renderCompleteKatexCount==renderKatexNum)
                     {//have complete
-                        PopUp.showCopyPopupContent(`Latex数学公式转换已完成，请再次点 <strong><span class="warning">复制</span></strong> 按键复制已包含转换公式后的内容<br/><br/>注：只当需要对Latex数学公式进行转换时才会弹出此窗口！`);
+                        PopUp.showCopyPopupContent(`Latex数学公式转换已完成，<strong><span class="warning">请再次点 "复制" </span></strong> 按键复制已包含转换公式后的内容<br/><br/>注：只当需要对Latex数学公式进行转换时才会弹出此窗口！`);
                     }
                    // document.execCommand('copy');
                    // $('#copy_btn').click();

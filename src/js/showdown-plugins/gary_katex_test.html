@@ -16,7 +16,7 @@
 
  <script type="text/javascript" src="./canvg/StackBlur.js"></script>
  -->
-<script src="./canvg/canvg.js" ></script> 
+<script src="./canvg/canvg_orin.js" ></script> 
 <!-- <script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script> 
 <script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
 <script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>  -->
@@ -30,7 +30,13 @@
  <div id="katex_render"></div>
    
    <canvas id="katex_svg2canvas" width="100px" height="50px" ></canvas>
- 
+   <!-- <svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13&#10; 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688&#10; 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7&#10;-331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"/></svg> -->
+   <!-- <svg  width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice" style="width: 9.78125px; height: 13.1406px;"><path d="M0 6l6-6h17c12.688 0 19.313.3 20 1 4 4 7.313 8.3 10 13&#10; 35.313 51.3 80.813 93.8 136.5 127.5 55.688 33.7 117.188 55.8 184.5 66.5.688&#10; 0 2 .3 4 1 18.688 2.7 76 4.3 172 5h399450v120H429l-6-1c-124.688-8-235-61.7&#10;-331-161C60.687 138.7 32.312 99.3 7 54L0 41V6z"/></svg> -->
+   <svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice" style="width: 15.5px; height: 10.5938px; "><path d="M199572 214
+    c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
+     53.3-86.7 123.7-153 211-199 66.7-36 137.3-56.3 212-62h199568v120H200432c-178.3
+     11.7-311.7 78.3-403 201-6 8-9.7 12-11 12-.7.7-6.7 1-18 1s-17.3-.3-18-1c-1.3 0
+    -5-4-11-12-44.7-59.3-101.3-106.3-170-141s-145.3-54.3-229-60H0V214z"></path></svg>
 <script>
   function katex_render()
   {
@@ -43,7 +49,7 @@
 
      } */
    //var svghtml='<svg width="400em" height="1em"><text x="50" y="50">Hello World!</text></svg>';
-   var svghtml='<svg width="502px" height="201px"><text x="50" y="50">Hello World!</text></svg>';
+   //var svghtml='<svg width="502px" height="201px"><text x="50" y="50">Hello World!</text></svg>';
   /*    <svg>
   <line x1="0"  y1="10" x2="0"   y2="100" style="stroke:#006600;"/>
   <line x1="10" y1="10" x2="100" y2="100" style="stroke:#006600;"/>
@@ -58,16 +64,13 @@
       height=""+height+"px";
       $(this).width(width);
       $(this).height(height);
-    //  var svghtml=$(this).parent().html().trim();
-    //  $("#katex_svg2canvas").width(width)  ;
-    //  $("#katex_svg2canvas").height(height)  ;
-            
-    //    canvg($("#katex_svg2canvas")[0],svghtml )
+    
 
     var xml = (new XMLSerializer()).serializeToString(this);
-    //xml=`<svg><text x="50" y="50">Hello World!</text></svg>`;
     // Removing the name space as IE throws an error
     xml = xml.replace(/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/, '');
+    //canvg($("#katex_svg2canvas")[0],xml )
+    
     //draw the SVG onto a canvas
     var canvas = document.createElement("canvas");
      canvas.className = "screenShotTempCanvas";
