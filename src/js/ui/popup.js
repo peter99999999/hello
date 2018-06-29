@@ -1,6 +1,18 @@
 var $ = require("jquery");
 var Cookie=require("../common/cookie.js");
 let popShowFlag=false;
+const VERSION_UPDATE=`
+<strong>版本号：V2.8.2</strong><br/>
+更新日期：2018-06-28<br/>
+1:结合云图床，解决了Latex公式复制到公众号时有可能报“图片粘贴失败的问题”;<br/>
+2:结合云图床，解决了Latex公式复制到知乎的问题;<br/>
+3:点“图片”图标时，在云图床设置上新增了：“文中需要转换为图片的内容,会自动上传到云图床”选项;<br/>
+4:在“一键排版”的各样式文件中更新了Latex的样式，主要是显示的大小，你可能需要<strong>“恢复预设值”</strong>才能看到新的样式.<br/><br/>
+
+<strong>支持云图床功能</strong><br/>
+选取本地图片后，会自动上传到你的七牛云图床，并在Md2All中自动插入相应markdown,显示图片。<br/>
+<a href='https://www.cnblogs.com/garyyan/p/9181809.html'>详细教程,请点击此链接查看</a>
+`
  const COPY_POPUP=`  
 <div class="copyPopupContent common_pop">
     <div class="closePopupContainerId">
@@ -26,7 +38,7 @@ var PopUp = function () {
       Cookie.setCookie(window.VERSION_WARN_ID,window.CUR_VER,365);
       let strhtml=$("#version_popup").html();
       PopUp.showContent(strhtml);
-      $('.versionContentId').html("<strong>本版本更新如下</strong><br/>1:增加对 <strong>行内</strong> Latex数学公式的支持<br/>2:优化Latex数学公式的显示;<br/>3:解决有些公式复制到公众号时可能出现的显示不完整的问题;<br/>4:在“一键排版”的各样式文件中增加对Latex的样式，你可能需要<strong>“恢复预设值”</strong>才能看到新的样式;<br/>5:对“综合示例”和“标题淡雅”这两个样式进行了一些调整.<br/><br/><br/><strong>支持云图床功能</strong><br/>选取本地图片后，会自动上传到你的七牛云图床，并在Md2All中自动插入相应markdown,显示图片。<br/><a href='https://www.cnblogs.com/garyyan/p/9181809.html'>详细教程,请点击此链接查看</a>");
+      $('.versionContentId').html(VERSION_UPDATE);
     }
    
 

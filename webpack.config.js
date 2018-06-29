@@ -23,8 +23,8 @@ module.exports = {
      //target: 'electron-renderer',
      target: target,
      //target: 'node',
-     mode:"development",
-     //mode:"production",
+     //mode:"development",
+     mode:"production",
     entry: {
         index : './src/js/index.js'
     },
@@ -34,7 +34,7 @@ module.exports = {
         publicPath:'output/',//my_publicPath,
         filename: '[name].js'
     },
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map',
     //devtool: 'hidden-source-map',
     resolve:{
         alias: {
@@ -167,6 +167,12 @@ module.exports = {
                 context: path.join(__dirname, './src/css/highlight'),
                 from: '*', 
                 to: '../highlight',
+                force: true
+            },
+            { 
+                context: path.join(__dirname, './src/js/showdown-plugins/katex/fonts'),
+                from: '*', 
+                to: '../fonts',
                 force: true
             },
              

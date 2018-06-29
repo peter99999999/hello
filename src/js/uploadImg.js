@@ -13,13 +13,22 @@ var UploadImg = function () {
     this.fileNum=0;
     this.fileCount=0;
     this.haveError=false;
-    this.picServerConfig={"accesskey":"","secretkey":"","bucketname":"","bucketdomain":""};
+    this.realDomain="";
+    this.autoLoadTemp=false;
+    this.uploadUrl="http://upload.qiniup.com";
+    this.getUploadUrl=false;
+    this.picServerConfig={"accesskey":"","secretkey":"","bucketname":"","bucketdomain":"","autoupload":false};
     this.Init();
 };
 const HTTP_PREFIX="http://"
 UploadImg.prototype.Init=function()
 {
+   
+
     let self=this;
+
+   
+
   
     let picServerConfigTmp=LocalStore.getValue(PIC_SERVER_SETTING);
     if(picServerConfigTmp!=null)
@@ -35,6 +44,8 @@ UploadImg.prototype.Init=function()
             {
                 let deStr=JSON.parse(plaintext);
                 self.picServerConfig=deStr;
+                self.autoLoadTemp=self.isAutoUpload();
+                self.UpdateServerInfo();
             }
             catch(e)
             {
@@ -47,7 +58,12 @@ UploadImg.prototype.Init=function()
             let i;
             i=0;
         }
+        
+      
     }
+
+   
+
     
     document.getElementById("editor").addEventListener('drop', function (e) {
         let files;
@@ -79,10 +95,26 @@ UploadImg.prototype.Init=function()
             $(".bucketname").val(self.picServerConfig.bucketname);
             $(".bucketdomain").val(self.picServerConfig.bucketdomain);
        
-
-        
+            self.autoLoadTemp=self.isAutoUpload();
+            if(self.isAutoUpload())
+            {
+                $('.autouploadImgInput').prop("checked", true);
+            }
+            else
+            {
+                $('.autouploadImgInput').prop("checked", false); 
+            }
+           
 
     })
+
+    $('#global_popup').on("click",".autouploadImgInput",function () {
+         if ($(this).prop("checked")) {
+            self.autoLoadTemp=true;
+         } else {
+            self.autoLoadTemp=false;
+         }
+     });
    
     $("#global_popup").on("click",".uploadPicBtnID",function(){
       //  $("#global_popup .picSettingContainer").toggle();
@@ -94,11 +126,15 @@ UploadImg.prototype.Init=function()
         self.picServerConfig.secretkey=MyStr.trim($(".secretkey").val());
         self.picServerConfig.bucketname=MyStr.trim($(".bucketname").val());
         self.picServerConfig.bucketdomain=MyStr.trim($(".bucketdomain").val());
+        self.picServerConfig.autoupload=self.autoLoadTemp;
         let picServerInfoStr=JSON.stringify(self.picServerConfig);
+        self.UpdateServerInfo();
         // Encrypt
         let picServerInfoStrEncrypt = CryptoJS.AES.encrypt(picServerInfoStr, SECRET_KEY);
         let picServerInfoStrEncryptStr= picServerInfoStrEncrypt.toString();
         LocalStore.setValue(PIC_SERVER_SETTING,picServerInfoStrEncryptStr);
+        window.updateData();
+
     })
 
 
@@ -172,6 +208,7 @@ UploadImg.prototype.CheckComplete=function()
    }
 }
 UploadImg.prototype.Upload = function (files,self) {
+    let Instance=this;
     let f;
     const UPLOAD_ERROR="<span class='warning'>上传失败!<span>"
     for(let i=0;i<files.length;i++ )
@@ -221,15 +258,7 @@ UploadImg.prototype.Upload = function (files,self) {
                         }, 
                         complete(res){
                             //console.log('observer complete ,the res.key is: '+res.key);
-                            let domain;
-                            if(0==self.picServerConfig.bucketdomain.indexOf("http"))
-                            {
-                                domain=self.picServerConfig.bucketdomain;
-                            }
-                            else
-                            {
-                                domain=HTTP_PREFIX+self.picServerConfig.bucketdomain;
-                            }
+                            let domain=Instance.realDomain;                           
                             $('textarea').insertAtCaret('![]('+domain+"/"+res.key+')\r');//if use \r\n,will find it effect the following content
                     //     PopUp.hide();
                             window.updateData();
@@ -280,6 +309,81 @@ UploadImg.prototype.Upload = function (files,self) {
 
 //var observable = qiniu.upload(file, key, token, putExtra, config)
 //var subscription = observable.subscribe(observer) // 上传开始
+UploadImg.prototype.UpdateServerInfo=function()
+{
+    let self=this;
+    self.ToRealBuckDomain();
+    self.TestUploadUrl();
+}
+UploadImg.prototype.ToRealBuckDomain=function()
+{
+    let self=this;
+    if(0==self.picServerConfig.bucketdomain.indexOf("http"))
+    {
+        self.realDomain=self.picServerConfig.bucketdomain;
+    }
+    else
+    {
+        self.realDomain=HTTP_PREFIX+self.picServerConfig.bucketdomain;
+    }
+}
+UploadImg.prototype.GetToken=function()
+{
+    let self=this;
+    let token = QiniuUPToken(self.picServerConfig.accesskey, self.picServerConfig.secretkey, self.picServerConfig.bucketname);
+    return token;
+}
 
+UploadImg.prototype.GetRealDomain=function()
+{
+    let self=this;
+    return self.realDomain;
+}
 
+UploadImg.prototype.TestUploadUrl=function()
+{
+    let self=this;
+    let token=self.GetToken();
+    self.getUploadUrl=false;
+    var config = {
+     useCdnDomain: true,
+     region: null,
+    //region: qiniu_js.region.z2,
+   };                  
+   
+    try
+    {//can catch even though have error
+        qiniu_js.getUploadUrl(config, token).then(
+            res => {
+            self.uploadUrl=res;
+            self.getUploadUrl=true;
+            })
+    }
+    catch(error)
+    {
+
+    }
+
+}
+UploadImg.prototype.GetUploadUrl=function()
+{
+    let self=this;
+    if(!self.getUploadUrl)
+    {
+        self.TestUploadUrl();
+    }
+    return self.uploadUrl;
+}
+UploadImg.prototype.isAutoUpload=function()
+{
+    let self=this;
+    if((self.picServerConfig.autoupload==null)||(!self.picServerConfig.autoupload))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 module.exports = UploadImg;

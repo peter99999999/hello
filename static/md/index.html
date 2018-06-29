@@ -8,7 +8,7 @@
   <meta name="email" content="3056432@qq.com">
   <meta name="description" content="Markdown排版利器，还能让Markdown内容，无需作任何调整就能同时在微信公众号、博客园、掘金、csdn等平台正确显示当前预览的效果">
   <title>Md2All</title>  
-  <script src="./output/index.js"></script>
+  <script src="./output/index.js?v2_8_2"></script>
    <style type="text/css" id="temp_style" >
   </style>
 
@@ -77,6 +77,7 @@
             <div class="picInputInfoItem"><label class="item_name ">Secret Key:</label><input class="secretkey" placeholder="请输入你在七牛的SecretKey"></input></div>
             <div class="picInputInfoItem"><label class="item_name ">Bucket Name:</label><input class="bucketname" placeholder="请输入你在七牛个人的储存空间名称,如:mybucket"></input></div> 
             <div class="picInputInfoItem"><label class="item_name ">Bucket Domain:</label><input class="bucketdomain" placeholder="请输入你在七牛个人的储存空间域名,如：mydomain.bkt.clouddn.com"></input></div> 
+            <div class="picInputInfoItem autouploadImgItem"><label class="autoUploadImgLabel ">文中需转换为图片的内容(如Latex数学公式),会自动上传到云图床</label><span class="autouploadImg"><input  type="checkbox" class="autouploadImgInput" ></input></span></div> 
             <button class="savePicSetting">保存设置</button>
         </div>
       </div>
@@ -125,7 +126,7 @@
                <div id="css_select" class="theme-wrapper">
                  <label >排版样式选择：</label><select class="css-theme"></select>
               </div>  
-               <label id="cssnote">注：修改或恢复预设值后，要<span style="font-weight: bold;font-size: 17px"> 保 存 </span>才生效</label> 
+               <label id="cssnote">注：修改或"恢复预设值"后，要<span style="font-weight: bold;font-size: 17px"> 保 存 </span>才生效</label> 
           </div>
           <div id="cssEditArea" contenteditable="true"></div>
           <div id="cssToolFoot">

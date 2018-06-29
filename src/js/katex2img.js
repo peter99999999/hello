@@ -16,8 +16,15 @@ Katex2Img.convert=function()
 {
     //$("#katex_icon").on("click",function(){
         //$("#render_output_id .katex-display").each(function(){
-           
-        var renderKatexNum=0;
+          let instance=this; 
+          var renderKatexNum=0;
+          let uploadHaveError=false;
+          let uploadUrl="";
+          let prefixBase64Img="data:image/png;base64,"
+          const completeConvertText=`Latex数学公式已成功转换为本地图片<br/><br/>`;
+          const completeUploadText=`Latex数学公式已转换为图片，并上传到云图床<br/><br/>`;
+          const completeUploadFailText=`Latex数学公式已成功转换为本地图片<br/><strong><span class="warning">但上传到云图床时有错,所以还是使用了本地图片。请检查图床设置，或网络状态！</span></strong><br/><br/>`;
+          const completeCommonText=`<strong><span class="warning">请再次点 "复制" </span></strong> 按键复制已包含转换公式后的内容<br/><br/>注：只当需要对Latex数学公式进行转换时才会弹出此窗口！`;
             let renderCompleteKatexCount=0;
             let isChrome = false;
             let userAgent = navigator.userAgent;
@@ -66,20 +73,85 @@ Katex2Img.convert=function()
                     //document.body.appendChild(canvas);
                     //let dataURL = canvas.toDataURL("image/png",1.0);
                     let dataURL = canvas.toDataURL();
+                    //dataURL=dataURL.substring(prefixBase64Img.length);
                     //document.getElementById("test1_html2canvasoutput_img").src=dataURL;
                     let html=`<img src=${dataURL} >`
                     $(self).html(html);
-                    renderCompleteKatexCount++;
-                    if(renderCompleteKatexCount==renderKatexNum)
-                    {//have complete
-                        PopUp.showCopyPopupContent(`Latex数学公式转换已完成，<strong><span class="warning">请再次点 "复制" </span></strong> 按键复制已包含转换公式后的内容<br/><br/>注：只当需要对Latex数学公式进行转换时才会弹出此窗口！`);
+                   // instance.img2Qiniu(dataURL);
+                   if(window.UploadImgInstance.isAutoUpload())
+                   {//upload the base64 img to qiniu
+                            
+                            let pic = dataURL.substring(prefixBase64Img.length);
+                        
+                        
+                           // var url = "http://up.qiniu.com/putb64/-1"; //非华东空间需要根据注意事项 1 修改上传域名
+                           if(uploadUrl=="") 
+                           {
+                                uploadUrl=window.UploadImgInstance.GetUploadUrl();
+                           }
+                            let url = uploadUrl+"/putb64/-1";//非华东空间需要根据注意事项 1 修改上传域名
+                            let xhr = new XMLHttpRequest();
+                            let token=window.UploadImgInstance.GetToken();
+                            
+                         
+                            xhr.onreadystatechange=function(){
+                            if (xhr.readyState==4){
+                            //  document.getElementById("myDiv").innerHTML=xhr.responseText;
+                                console.log("The katex to qiniu response is :"+xhr.responseText)
+                                try
+                                {
+                                    var reponseObj = JSON.parse(xhr.responseText); 
+                                    if(reponseObj.hash!=null)
+                                    {
+                                        let qiniuImgUrl=window.UploadImgInstance.GetRealDomain();
+                                        qiniuImgUrl=qiniuImgUrl+"/"+reponseObj.hash;
+                                        let imgHtml=`<img src=${qiniuImgUrl} >`
+                                        $(self).html(imgHtml);
+                                    }
+                                    else
+                                    {
+                                        uploadHaveError=true;    
+                                    }
+                                }
+                                catch(error)
+                                {
+                                    uploadHaveError=true;   
+                                }
+                                renderCompleteKatexCount++;
+                                if(renderCompleteKatexCount==renderKatexNum)
+                                {//have complete
+                                    if(uploadHaveError)
+                                    {
+                                        PopUp.showCopyPopupContent(completeUploadFailText+completeCommonText);
+                                    }
+                                    else
+                                    {
+                                        PopUp.showCopyPopupContent(completeUploadText+completeCommonText);
+                                    }
+                                }
+                            }
+                            }
+                            xhr.open("POST", url, true);
+                            xhr.setRequestHeader("Content-Type", "application/octet-stream");  
+                            xhr.setRequestHeader("Authorization","UpToken "+ token);
+                            xhr.send(pic);
                     }
-                   // document.execCommand('copy');
-                   // $('#copy_btn').click();
+                    else
+                    {
+                                renderCompleteKatexCount++;
+                                if(renderCompleteKatexCount==renderKatexNum)
+                                {//have complete
+                                    PopUp.showCopyPopupContent(completeConvertText+completeCommonText);
+                                }
+                    }
+                   
+                   
+                 
                    
                 });
             }
         })
     //})
 }
+
 module.exports = Katex2Img;

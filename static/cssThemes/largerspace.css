@@ -198,12 +198,11 @@ table tr th {
 
 /*<span  class="css_edit_note">================数学公式开始================</span>*/
 .katex-display {/*<span  class="css_edit_note">块公式</span>*/
-  font-size:1.5em; 
+  font-size:1.22em; 
 }
 .katex
-{/*<span  class="css_edit_note">行内公式，块公式</span>*/
-  padding:8px;
-  font-size:1.2em;
+{/*<span  class="css_edit_note">行内公式</span>*/
+  padding:8px 3px;
 }
 .katex-display > .katex
 {/*<span  class="css_edit_note">块公式</span>*/

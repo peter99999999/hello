@@ -1,9 +1,9 @@
 
 require('../css/index.less');
 require('../css/main.scss');
+window.CUR_VER="v2_8_2";
 
-
-
+//var qiniu_js = require('qiniu-js');
 
 //require('../css/output_wrapper.css');
 //var $=JQUERY;
@@ -40,19 +40,20 @@ var UploadImg=require("./uploadImg.js");
 //require("./google-code-prettify/run_prettify.js"); //Gary delete it,as it will go to download the  https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.css ,but will fail usually
 
 
-var DEMO_FILE='readme_v2_8_1.md';
-var OUTPUT_WRAPPER_CSS_FILE='output_wrapper_v2_8_1.css'
+var DEMO_FILE='readme.md'+"?"+window.CUR_VER;
+var OUTPUT_WRAPPER_CSS_FILE='output_wrapper.css'+"?"+window.CUR_VER;
 var gCodeThemeIns;
 var gCssThemeIns;
 var gHtml=false;
 var gFileExplolerIns;
+window.UploadImgInstance=null;
 window.CSS_WRAPPER=".output_wrapper";
-
 window.current_code_size_style='';
 window.code_size_default_style='';
 window.code_size_tight_style='';
 window.codeThemeCss='';
 window.outputWrapperStyleSheets='';
+
 
 
 //for the stylesheet
@@ -62,7 +63,7 @@ window.CODE_SIZE_ID='code_size';
 window.MY_CSS_ID="mycss";
 window.VERSION_WARN_ID_PRE="versionwarn_V2_8_0";
 window.VERSION_WARN_ID="versionwarn";
-window.CUR_VER="V2_8_1";
+
 
 //var PageTheme = require("./theme/page-theme");
 var hljs = require("./highlight/highlight.pack.js");
@@ -175,14 +176,14 @@ function CssThemeCall()
 function start()
       {
          
-      /*   let testRam= "a\tb";
+        let testRam= "a\tb";
         let testRamB= "a\\tb";
         console.log(String.raw`${testRam}`);      
            console.log(`${testRam}`);
            console.log(String.raw`a\tb`);
            console.log("a\tb");
-           console.log("a\\tb"); */
-         
+           console.log("a\\tb"); 
+          
 
         let editTimerId=null;
               const UPDATE_EDIT_TIMER=200;
@@ -214,7 +215,7 @@ function start()
           }});
              PopUp.init();
          
-             new UploadImg();
+             window.UploadImgInstance=new UploadImg();
             new ColorApp();
             gCodeThemeIns=new CodeTheme();
             gCssThemeIns=new CssTheme();

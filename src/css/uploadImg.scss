@@ -27,6 +27,10 @@ $PIC_BTN_BACKGROUND_COLOR:#00C853;
     width: 100%;
     padding:10px 0px;
 }
+.autouploadImgItem
+{
+    flex-direction:row-reverse;
+}
 
 .picInputInfoItem label
 {
@@ -34,11 +38,24 @@ $PIC_BTN_BACKGROUND_COLOR:#00C853;
   flex-grow:0;
  
 }
+.picInputInfoItem .autoUploadImgLabel
+{
+    width:80%;
+    flex-grow:0;
+}
 
-.picInputInfoItem input
+.picInputInfoItem >input
 {
   
   flex-grow:1;
+}
+
+
+.picInputInfoItem .autouploadImg
+{
+    text-align: right;
+    padding-right: 20px;
+    flex-grow:1;
 }
 
 .uploadPicBtn

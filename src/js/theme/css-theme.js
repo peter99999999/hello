@@ -132,7 +132,7 @@ function ApplyCssToStyle(cssData)
 
 function loadServerCss(theme,applyToStyle)
 {
-         var url = './cssThemes/'+css_themes[theme][0]+ '.css';
+         var url = './cssThemes/'+css_themes[theme][0]+ '.css?'+window.CUR_VER;
          $.ajax({url:url,success:function(data){           
                  
                  //$('#cssEditArea').text(data);
