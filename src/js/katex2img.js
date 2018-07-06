@@ -97,7 +97,7 @@ Katex2Img.convert=function()
                             xhr.onreadystatechange=function(){
                             if (xhr.readyState==4){
                             //  document.getElementById("myDiv").innerHTML=xhr.responseText;
-                                console.log("The katex to qiniu response is :"+xhr.responseText)
+                               // console.log("The katex to qiniu response is :"+xhr.responseText)
                                 try
                                 {
                                     var reponseObj = JSON.parse(xhr.responseText); 

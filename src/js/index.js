@@ -1,4 +1,6 @@
-
+var testRequire=require('../testbase/test_html_include_js.js');
+testRequire.inFunction();
+testRequire.inFunction_2();
 require('../css/index.less');
 require('../css/main.scss');
 window.CUR_VER="v2_8_2";
@@ -175,14 +177,14 @@ function CssThemeCall()
 
 function start()
       {
-         
+     /*     
         let testRam= "a\tb";
         let testRamB= "a\\tb";
         console.log(String.raw`${testRam}`);      
            console.log(`${testRam}`);
            console.log(String.raw`a\tb`);
            console.log("a\tb");
-           console.log("a\\tb"); 
+           console.log("a\\tb");  */
           
 
         let editTimerId=null;

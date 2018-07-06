@@ -341,11 +341,11 @@ FileExplorer.prototype.FilePopupWindow = function(fileDom,mouseE) {
 	let folderFuncS=[
 	                   ["增加文件","add_file"],
 	                  ["增加文件夹","add_folder"],
-	                  ["删除","delete_file"],
+	                  ["移到回收站","delete_file"],
 	                  ["重命名","rename_folder"]
 	                ];
 	let fileFuncS=[	                 
-	                  ["删除文件","delete_file"],
+	                  ["移到回收站","delete_file"],
 	                  ["重命名","rename_file"]
 	                ];
 	let funcsArray;
