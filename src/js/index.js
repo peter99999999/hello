@@ -1,9 +1,9 @@
-var testRequire=require('../testbase/test_html_include_js.js');
+/* var testRequire=require('../testbase/test_html_include_js.js');
 testRequire.inFunction();
-testRequire.inFunction_2();
+testRequire.inFunction_2(); */
 require('../css/index.less');
 require('../css/main.scss');
-window.CUR_VER="v2_8_2";
+window.CUR_VER="v=2_8_3";
 
 //var qiniu_js = require('qiniu-js');
 

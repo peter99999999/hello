@@ -3344,6 +3344,351 @@ hljs.registerLanguage('go', function(hljs) {
     ]
   };
 });
+hljs.registerLanguage('r', function(hljs) {
+  var IDENT_RE = '([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*';
+
+  return {
+    contains: [
+      hljs.HASH_COMMENT_MODE,
+      {
+        begin: IDENT_RE,
+        lexemes: IDENT_RE,
+        keywords: {
+          keyword:
+            'function if in break next repeat else for return switch while try tryCatch ' +
+            'stop warning require library attach detach source setMethod setGeneric ' +
+            'setGroupGeneric setClass ...',
+          literal:
+            'NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 ' +
+            'NA_complex_|10'
+        },
+        relevance: 0
+      },
+      {
+        // hex value
+        className: 'number',
+        begin: "0[xX][0-9a-fA-F]+[Li]?\\b",
+        relevance: 0
+      },
+      {
+        // explicit integer
+        className: 'number',
+        begin: "\\d+(?:[eE][+\\-]?\\d*)?L\\b",
+        relevance: 0
+      },
+      {
+        // number with trailing decimal
+        className: 'number',
+        begin: "\\d+\\.(?!\\d)(?:i\\b)?",
+        relevance: 0
+      },
+      {
+        // number
+        className: 'number',
+        begin: "\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",
+        relevance: 0
+      },
+      {
+        // number with leading decimal
+        className: 'number',
+        begin: "\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",
+        relevance: 0
+      },
+
+      {
+        // escaped identifier
+        begin: '`',
+        end: '`',
+        relevance: 0
+      },
+
+      {
+        className: 'string',
+        contains: [hljs.BACKSLASH_ESCAPE],
+        variants: [
+          {begin: '"', end: '"'},
+          {begin: "'", end: "'"}
+        ]
+      }
+    ]
+  };
+});
+
+hljs.registerLanguage('dart', function (hljs) {
+  var SUBST = {
+    className: 'subst',
+    begin: '\\$\\{', end: '}',
+    keywords: 'true false null this is new super'
+  };
+
+  var STRING = {
+    className: 'string',
+    variants: [
+      {
+        begin: 'r\'\'\'', end: '\'\'\''
+      },
+      {
+        begin: 'r"""', end: '"""'
+      },
+      {
+        begin: 'r\'', end: '\'',
+        illegal: '\\n'
+      },
+      {
+        begin: 'r"', end: '"',
+        illegal: '\\n'
+      },
+      {
+        begin: '\'\'\'', end: '\'\'\'',
+        contains: [hljs.BACKSLASH_ESCAPE, SUBST]
+      },
+      {
+        begin: '"""', end: '"""',
+        contains: [hljs.BACKSLASH_ESCAPE, SUBST]
+      },
+      {
+        begin: '\'', end: '\'',
+        illegal: '\\n',
+        contains: [hljs.BACKSLASH_ESCAPE, SUBST]
+      },
+      {
+        begin: '"', end: '"',
+        illegal: '\\n',
+        contains: [hljs.BACKSLASH_ESCAPE, SUBST]
+      }
+    ]
+  };
+  SUBST.contains = [
+    hljs.C_NUMBER_MODE, STRING
+  ];
+
+  var KEYWORDS = {
+    keyword: 'assert async await break case catch class const continue default do else enum extends false final ' +
+      'finally for if in is new null rethrow return super switch sync this throw true try var void while with yield ' +
+      'abstract as dynamic export external factory get implements import library operator part set static typedef',
+    built_in:
+      // dart:core
+      'print Comparable DateTime Duration Function Iterable Iterator List Map Match Null Object Pattern RegExp Set ' +
+      'Stopwatch String StringBuffer StringSink Symbol Type Uri bool double int num ' +
+      // dart:html
+      'document window querySelector querySelectorAll Element ElementList'
+  };
+
+  return {
+    keywords: KEYWORDS,
+    contains: [
+      STRING,
+      hljs.COMMENT(
+        '/\\*\\*',
+        '\\*/',
+        {
+          subLanguage: 'markdown'
+        }
+      ),
+      hljs.COMMENT(
+        '///',
+        '$',
+        {
+          subLanguage: 'markdown'
+        }
+      ),
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      {
+        className: 'class',
+        beginKeywords: 'class interface', end: '{', excludeEnd: true,
+        contains: [
+          {
+            beginKeywords: 'extends implements'
+          },
+          hljs.UNDERSCORE_TITLE_MODE
+        ]
+      },
+      hljs.C_NUMBER_MODE,
+      {
+        className: 'meta', begin: '@[A-Za-z]+'
+      },
+      {
+        begin: '=>' // No markup, just a relevance booster
+      }
+    ]
+  }
+});
+hljs.registerLanguage('delphi', function(hljs) {
+  var KEYWORDS =
+    'exports register file shl array record property for mod while set ally label uses raise not ' +
+    'stored class safecall var interface or private static exit index inherited to else stdcall ' +
+    'override shr asm far resourcestring finalization packed virtual out and protected library do ' +
+    'xorwrite goto near function end div overload object unit begin string on inline repeat until ' +
+    'destructor write message program with read initialization except default nil if case cdecl in ' +
+    'downto threadvar of try pascal const external constructor type public then implementation ' +
+    'finally published procedure absolute reintroduce operator as is abstract alias assembler ' +
+    'bitpacked break continue cppdecl cvar enumerator experimental platform deprecated ' +
+    'unimplemented dynamic export far16 forward generic helper implements interrupt iochecks ' +
+    'local name nodefault noreturn nostackframe oldfpccall otherwise saveregisters softfloat ' +
+    'specialize strict unaligned varargs ';
+  var COMMENT_MODES = [
+    hljs.C_LINE_COMMENT_MODE,
+    hljs.COMMENT(/\{/, /\}/, {relevance: 0}),
+    hljs.COMMENT(/\(\*/, /\*\)/, {relevance: 10})
+  ];
+  var DIRECTIVE = {
+    className: 'meta',
+    variants: [
+      {begin: /\{\$/, end: /\}/},
+      {begin: /\(\*\$/, end: /\*\)/}
+    ]
+  };
+  var STRING = {
+    className: 'string',
+    begin: /'/, end: /'/,
+    contains: [{begin: /''/}]
+  };
+  var CHAR_STRING = {
+    className: 'string', begin: /(#\d+)+/
+  };
+  var CLASS = {
+    begin: hljs.IDENT_RE + '\\s*=\\s*class\\s*\\(', returnBegin: true,
+    contains: [
+      hljs.TITLE_MODE
+    ]
+  };
+  var FUNCTION = {
+    className: 'function',
+    beginKeywords: 'function constructor destructor procedure', end: /[:;]/,
+    keywords: 'function constructor|10 destructor|10 procedure|10',
+    contains: [
+      hljs.TITLE_MODE,
+      {
+        className: 'params',
+        begin: /\(/, end: /\)/,
+        keywords: KEYWORDS,
+        contains: [STRING, CHAR_STRING, DIRECTIVE].concat(COMMENT_MODES)
+      },
+      DIRECTIVE
+    ].concat(COMMENT_MODES)
+  };
+  return {
+    aliases: ['dpr', 'dfm', 'pas', 'pascal', 'freepascal', 'lazarus', 'lpr', 'lfm'],
+    case_insensitive: true,
+    keywords: KEYWORDS,
+    illegal: /"|\$[G-Zg-z]|\/\*|<\/|\|/,
+    contains: [
+      STRING, CHAR_STRING,
+      hljs.NUMBER_MODE,
+      CLASS,
+      FUNCTION,
+      DIRECTIVE
+    ].concat(COMMENT_MODES)
+  };
+});
+hljs.registerLanguage('vbnet', function(hljs) {
+  return {
+    aliases: ['vb'],
+    case_insensitive: true,
+    keywords: {
+      keyword:
+        'addhandler addressof alias and andalso aggregate ansi as assembly auto binary by byref byval ' + /* a-b */
+        'call case catch class compare const continue custom declare default delegate dim distinct do ' + /* c-d */
+        'each equals else elseif end enum erase error event exit explicit finally for friend from function ' + /* e-f */
+        'get global goto group handles if implements imports in inherits interface into is isfalse isnot istrue ' + /* g-i */
+        'join key let lib like loop me mid mod module mustinherit mustoverride mybase myclass ' + /* j-m */
+        'namespace narrowing new next not notinheritable notoverridable ' + /* n */
+        'of off on operator option optional or order orelse overloads overridable overrides ' + /* o */
+        'paramarray partial preserve private property protected public ' + /* p */
+        'raiseevent readonly redim rem removehandler resume return ' + /* r */
+        'select set shadows shared skip static step stop structure strict sub synclock ' + /* s */
+        'take text then throw to try unicode until using when where while widening with withevents writeonly xor', /* t-x */
+      built_in:
+        'boolean byte cbool cbyte cchar cdate cdec cdbl char cint clng cobj csbyte cshort csng cstr ctype ' +  /* b-c */
+        'date decimal directcast double gettype getxmlnamespace iif integer long object ' + /* d-o */
+        'sbyte short single string trycast typeof uinteger ulong ushort', /* s-u */
+      literal:
+        'true false nothing'
+    },
+    illegal: '//|{|}|endif|gosub|variant|wend|^\\$ ', /* reserved deprecated keywords */
+    contains: [
+      hljs.inherit(hljs.QUOTE_STRING_MODE, {contains: [{begin: '""'}]}),
+      hljs.COMMENT(
+        '\'',
+        '$',
+        {
+          returnBegin: true,
+          contains: [
+            {
+              className: 'doctag',
+              begin: '\'\'\'|<!--|-->',
+              contains: [hljs.PHRASAL_WORDS_MODE]
+            },
+            {
+              className: 'doctag',
+              begin: '</?', end: '>',
+              contains: [hljs.PHRASAL_WORDS_MODE]
+            }
+          ]
+        }
+      ),
+      hljs.C_NUMBER_MODE,
+      {
+        className: 'meta',
+        begin: '#', end: '$',
+        keywords: {'meta-keyword': 'if else elseif end region externalsource'}
+      }
+    ]
+  };
+});
+
+hljs.registerLanguage('vbscript', function(hljs) {
+  return {
+    aliases: ['vbs'],
+    case_insensitive: true,
+    keywords: {
+      keyword:
+        'call class const dim do loop erase execute executeglobal exit for each next function ' +
+        'if then else on error option explicit new private property let get public randomize ' +
+        'redim rem select case set stop sub while wend with end to elseif is or xor and not ' +
+        'class_initialize class_terminate default preserve in me byval byref step resume goto',
+      built_in:
+        'lcase month vartype instrrev ubound setlocale getobject rgb getref string ' +
+        'weekdayname rnd dateadd monthname now day minute isarray cbool round formatcurrency ' +
+        'conversions csng timevalue second year space abs clng timeserial fixs len asc ' +
+        'isempty maths dateserial atn timer isobject filter weekday datevalue ccur isdate ' +
+        'instr datediff formatdatetime replace isnull right sgn array snumeric log cdbl hex ' +
+        'chr lbound msgbox ucase getlocale cos cdate cbyte rtrim join hour oct typename trim ' +
+        'strcomp int createobject loadpicture tan formatnumber mid scriptenginebuildversion ' +
+        'scriptengine split scriptengineminorversion cint sin datepart ltrim sqr ' +
+        'scriptenginemajorversion time derived eval date formatpercent exp inputbox left ascw ' +
+        'chrw regexp server response request cstr err',
+      literal:
+        'true false null nothing empty'
+    },
+    illegal: '//',
+    contains: [
+      hljs.inherit(hljs.QUOTE_STRING_MODE, {contains: [{begin: '""'}]}),
+      hljs.COMMENT(
+        /'/,
+        /$/,
+        {
+          relevance: 0
+        }
+      ),
+      hljs.C_NUMBER_MODE
+    ]
+  };
+});
+
+hljs.registerLanguage('vbscript-html', function(hljs) {
+  return {
+    subLanguage: 'xml',
+    contains: [
+      {
+        begin: '<%', end: '%>',
+        subLanguage: 'vbscript'
+      }
+    ]
+  };
+});
+
 hljs.registerLanguage('kotlin', function(hljs) {
   var KEYWORDS = {
     keyword:

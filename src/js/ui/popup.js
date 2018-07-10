@@ -2,6 +2,11 @@ var $ = require("jquery");
 var Cookie=require("../common/cookie.js");
 let popShowFlag=false;
 const VERSION_UPDATE=`
+<strong>版本号：V2.8.3</strong><br/>
+更新日期：2018-07-09<br/>
+1:增加对以下语言的highlight<br/>
+dart,r,delphi,vb(vbnet),vbs(vbscript),vbscript-html<br/><br/>
+
 <strong>版本号：V2.8.2</strong><br/>
 更新日期：2018-06-28<br/>
 1:结合云图床，解决了Latex公式复制到公众号时有可能报“图片粘贴失败的问题”;<br/>
