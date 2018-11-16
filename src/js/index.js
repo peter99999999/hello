@@ -86,7 +86,8 @@ var SAVE_TEXT_COOKIE_NAME='SAVE_TEXT_COOKIE_NAME'
 //解决代码在一些手机上的缩进无效的情况，如OPPO r11
 window.output_wrapper_css_ext1=' .output_wrapper pre code{font-family: Consolas, Inconsolata, Courier, monospace; display: block !important; white-space: pre !important; word-wrap: normal !important; word-break: normal !important;  overflow: auto !important;} ';
 window.output_wrapper_css_ext2=' .output_wrapper pre code *{word-wrap: inherit !important; word-break: inherit !important;} ';
-
+//window.output_wrapper_css_ext1=' ';
+//window.output_wrapper_css_ext2=' ';
 //window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:super; }';
 //window.output_wrapper_css_katex_ext=' .katex .msupsub .vlist > span {display: inline-block;height: 0;position: static;vertical-align:middle; }; .katex .msupsub .vlist span .mathrm{display: inline-block;height: 0;position: static;vertical-align:super; }; .katex .msupsub .vlist span .mathit{display: inline-block;height: 0;position: static;vertical-align:sub; } ';
 window.output_wrapper_css_katex_ext='';

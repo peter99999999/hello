@@ -9,7 +9,7 @@ ifrm.document.close();
 <head>
   <script src="./js/jquery-3.1.1.js"></script>
   <link rel="stylesheet" href="./css/highlight/agate.css"/>
-   <link rel="stylesheet" href="./css/katex/katex.css"/>
+  <!-- <link rel="stylesheet" href="./css/katex/katex.css"/>-->
   <link rel="stylesheet" href="./css/highlight/androidstudio.css"/>
    <style type="text/css" id="sytle_1">
    
@@ -102,7 +102,7 @@ var iframe=document.createElement("iframe");
   var ifrm = document.getElementById("te");
   var doc = ifrm.contentDocument || ifrm.contentWindow.document; // W3C || IE  方式获取iframe的文档对象  
   var ifrm_body=doc.body;  
-  doc.body.contentEditable= "true"; 
+  doc.body.contentEditable= "true"; //in chrom ,maybe want add <body contenteditable="true"> by mannual
    console.log("iframe html is:"+doc.innerHTML);
    var content=$('#te').contents();
 

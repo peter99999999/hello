@@ -1,3 +1,6 @@
+2018-11-16
+测试为什么70之后的chrome版本在iphone上显示代码会换行错误，结果是： the "white-space: pre !important" attr can't pasted to iframe
+
 2018-06-05
 1：在文件处理方面，已实现所有要加的功能，及错误的处理，如：文件名过长，同名等
 除：当不是通过此app增删文件夹时，不会自动扫描文件夹的改动并自动刷新目录树

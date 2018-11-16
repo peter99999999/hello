@@ -1,3 +1,18 @@
+/*
+1:For Electron
+1):var isEletronApp=true;
+
+2:For Web
+1):var isEletronApp=false;
+ 
+3: For common
+1):if debug
+mode:"development",
+
+2):if release
+mode:"production", 
+
+ */
 //var isEletronApp=true;
 var isEletronApp=false;
 if(isEletronApp)
@@ -23,8 +38,8 @@ module.exports = {
      //target: 'electron-renderer',
      target: target,
      //target: 'node',
-     //mode:"development",
-     mode:"production",
+     mode:"development",
+     //mode:"production",
     entry: {
         index : './src/js/index.js'
     },
@@ -34,7 +49,7 @@ module.exports = {
         publicPath:'output/',//my_publicPath,
         filename: '[name].js'
     },
-    //devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     //devtool: 'hidden-source-map',
     resolve:{
         alias: {

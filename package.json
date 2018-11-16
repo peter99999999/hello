@@ -32,7 +32,7 @@
     "markdown-it-katex": "^2.0.3",
     "marked": "^0.3.6",
     "qiniu": "^7.1.7",
-    "qiniu-js": "^2.2.2",
+    "qiniu-js": "^2.5.3",
     "qiniu-uptoken": "^1.0.8"
   },
   "devDependencies": {
@@ -59,6 +59,7 @@
     "less-loader": "^4.1.0",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
+    "qiniu-js": "^2.5.3",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

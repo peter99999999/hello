@@ -1,0 +1,1 @@
+electron-packager . md2all --win --out ../ElectronApp --arch=x64 --version=0.0.1
