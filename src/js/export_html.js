@@ -19,11 +19,49 @@ var ExportHtml = function()
   this.init();
 };
 
+ExportHtml.prototype.SubStr=function(srcStr,findStr)
+{
+    var newSrcStr;
+    var findIndex;
+    var strLen;
+    newSrcStr=srcStr.toLowerCase();
+    strLen=srcStr.length; 
+    findIndex=newSrcStr.indexOf(findStr);
+    if
+    (
+        findIndex>0
+        &&
+        strLen==findIndex+findStr.length
+    )
+    {
+        newSrcStr=srcStr.substring(0,findIndex);
+    }
+    else
+    {
+        newSrcStr=srcStr;
+    }
+    return newSrcStr;
+ 
+}
 ExportHtml.prototype.InitInfo=function()
 {
-	 this.UpdateCss();
-
-	 this.fileName=localStorage.getItem(this.FILE_EXPORT_NAME_COOKIE_NAME);
+    
+    this.UpdateCss();
+     if(ELECTRON_APP)
+     {
+        if(window.gFileExplolerIns!=null)
+        {
+           
+            this.fileName=window.gFileExplolerIns.GetCurrentFileName();
+            this.fileName=this.SubStr(this.fileName,".html");
+            this.fileName=this.SubStr(this.fileName,".md");
+           
+        }
+     }
+     else 
+     {
+         this.fileName=localStorage.getItem(this.FILE_EXPORT_NAME_COOKIE_NAME);
+     }
      if((this.fileName==null)||(this.fileName==""))
      {
                this.fileName=this.DEFAULT_FILE_NAME;

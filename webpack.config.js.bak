@@ -14,6 +14,7 @@ mode:"production",
 
  */
 var isEletronApp=true;
+var isDebug=true;
 //var isEletronApp=false;
 if(isEletronApp)
 {
@@ -23,6 +24,15 @@ else
 {
     target='web';
 }
+if(isDebug)
+{
+	compileMode="development" ;
+}
+else
+{
+	compileMode="production" ;
+} 
+ 
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');

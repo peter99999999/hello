@@ -1,5 +1,8 @@
-git status
-git add -A
-git commit -m "update to v2_8_3,Add dart,r,vb,vbs,vbhtml highlight"
-git push
-pause
+rem electron-packager . md2all --win --out ../ElectronApp --arch=x64 --version=0.0.1
+set APP_PATH_SRC=electronApp_src
+rmdir /s /q %APP_PATH_SRC% 
+mkdir %APP_PATH_SRC% 
+xcopy /s /e  static %APP_PATH_SRC%\static\
+copy  package.json %APP_PATH_SRC%
+copy  main.js %APP_PATH_SRC%
+electron-packager ./%APP_PATH_SRC% md2all --win --out ./electronApp_target --arch=x64 --version=0.0.1

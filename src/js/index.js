@@ -47,7 +47,7 @@ var OUTPUT_WRAPPER_CSS_FILE='output_wrapper.css'+"?"+window.CUR_VER;
 var gCodeThemeIns;
 var gCssThemeIns;
 var gHtml=false;
-var gFileExplolerIns;
+window.gFileExplolerIns=null;
 window.UploadImgInstance=null;
 window.CSS_WRAPPER=".output_wrapper";
 window.current_code_size_style='';
@@ -97,7 +97,7 @@ window.updateData=function(data)
 }
 window.saveEditData=function()
 {
-    return(gFileExplolerIns.fs_saveFile( $('#editor').val()));
+    return(window.gFileExplolerIns.fs_saveFile( $('#editor').val()));
 }
 
 window.updateEditData=function(data)
@@ -198,6 +198,7 @@ function start()
               literalMidWordUnderscores:true,//要打开此选项，否则，有些数学公式如：$H(D_2) = -(\frac{2}{4}\ log_2 \frac{2}{4} + \frac{2}{4}\ log_2 \frac{2}{4}) = 1$，会显示不出来
               strikethrough:true,
               backslashEscapesHTMLTags:true,//can user \ to escape the html tag,for example :\<div>
+              openLinksInNewWindow:true,
              // emoji:true,
              //omitExtraWLInCodeBlocks:true,
               prefixHeaderId:"h"
@@ -231,7 +232,7 @@ function start()
             new WindowHandle();
             if(ELECTRON_APP)
             {
-                gFileExplolerIns=new FileExplorer();
+                window.gFileExplolerIns=new FileExplorer();
             }
             else
             {
@@ -281,47 +282,52 @@ function start()
                updateOutput(); 
        
             });
+           if(ELECTRON_APP)
+           {
+            $('#edit_file').hide();
+           }
+           else
+           {
+                $('#edit_file').click(function(){
 
-           $('#edit_file').click(function(){
+                    if(firstEdit)
+                    {
+                        let saveText="";
+                        if(!ELECTRON_APP)
+                        {
+                            saveText=LocalStore.getValue(SAVE_TEXT_COOKIE_NAME);
+                        }
+                        //for test
+            
+                        /*  var url = 'http://127.0.0.1/getblogData';
+                                var postStr=" ";
+                                $.ajax({url:url,
+                                //contentType: "application/x-www-form-urlencoded;charset=utf-8", //only for form
+                                contentType:'application/json;charset=utf-8',//can post your define data
+                                type:"POST",
+                                data:postStr,           
+                                //data:submitObj,
+                                success:function(data){   
+                                        //console.log(data+'\n'); 
+                                        $('#editor').val(data); 
+                                        updateOutput(); 
+                                }
 
-               if(firstEdit)
-               {
-                let saveText="";
-                if(!ELECTRON_APP)
-                 {
-                     saveText=LocalStore.getValue(SAVE_TEXT_COOKIE_NAME);
-                 }
-                 //for test
-     
-                /*  var url = 'http://127.0.0.1/getblogData';
-                         var postStr=" ";
-                         $.ajax({url:url,
-                           //contentType: "application/x-www-form-urlencoded;charset=utf-8", //only for form
-                           contentType:'application/json;charset=utf-8',//can post your define data
-                           type:"POST",
-                           data:postStr,           
-                           //data:submitObj,
-                           success:function(data){   
-                                //console.log(data+'\n'); 
-                                 $('#editor').val(data); 
-                                 updateOutput(); 
-                           }
-
-                         });   */
+                                });   */
 
 
-                 $('#editor').val(saveText); 
-                 updateOutput(); 
-                 firstEdit=false;
-              }
-              else
-              {
-                //Cookie.setCookie(SAVE_TEXT_COOKIE_NAME,$('#editor').val(),365);
-              }
-              
-              gCssThemeIns.closeWindow();
-           });
-         
+                        $('#editor').val(saveText); 
+                        updateOutput(); 
+                        firstEdit=false;
+                    }
+                    else
+                    {
+                        //Cookie.setCookie(SAVE_TEXT_COOKIE_NAME,$('#editor').val(),365);
+                    }
+                    
+                    gCssThemeIns.closeWindow();
+                });
+            }
            $('#copy_btn').on("click",function()
            {
             Katex2img.convert(); 

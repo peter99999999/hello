@@ -13,8 +13,9 @@ mode:"development",
 mode:"production", 
 
  */
-//var isEletronApp=true;
-var isEletronApp=false;
+var isEletronApp=true;
+var isDebug=true;
+//var isEletronApp=false;
 if(isEletronApp)
 {
     target='electron-renderer';
@@ -23,6 +24,15 @@ else
 {
     target='web';
 }
+if(isDebug)
+{
+	compileMode="development" ;
+}
+else
+{
+	compileMode="production" ;
+} 
+ 
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
@@ -38,8 +48,7 @@ module.exports = {
      //target: 'electron-renderer',
      target: target,
      //target: 'node',
-     mode:"development",
-     //mode:"production",
+     mode:compileMode,
     entry: {
         index : './src/js/index.js'
     },

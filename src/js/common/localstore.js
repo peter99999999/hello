@@ -37,8 +37,13 @@ LocalStore.setValue=function(name,value)
     let realName=name;
     if(ELECTRON_APP)
     {
+        if(!fs.existsSync(LOCAL_STORE_PATH))
+        {
+            fs.mkdirSync(LOCAL_STORE_PATH);
+        }
         realName=LOCAL_STORE_PATH+realName;
         fs.writeFileSync(realName, value);
+    
     }
     else
     {

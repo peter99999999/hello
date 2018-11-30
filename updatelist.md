@@ -1,5 +1,13 @@
+2018-11-28
+1:in "common\localstore.js" if find the LOCAL_STORE_PATH  folder don't exist,will mkdir for it
+2:update the  "Make_ElectronApp.bat "to make it more smart 
+3:open linke in new window:openLinksInNewWindow:true,
+4:add *.html display.
+5:add FileExplorer.prototype.GetCurrentFileName,when Electron App,the export default file name is current select file name
+
 2018-11-16
 测试为什么70之后的chrome版本在iphone上显示代码会换行错误，结果是： the "white-space: pre !important" attr can't pasted to iframe
+add detail in readme.md
 
 2018-06-05
 1：在文件处理方面，已实现所有要加的功能，及错误的处理，如：文件名过长，同名等

@@ -22,7 +22,8 @@ var FileExplorer = function () {
 	this.RENAME_FILE="same_file_name";
 	this.NEW_FILE_NAME="new_file_name";
 	this.NOT_EXIST_FILE="not_exist_file";
-	this.currentFile=null;
+	this.currentFile=null;//the current file full  path
+	this.currentFileName=null;//only the file name;
 	this.configObj={"filePaths":[]};
 	this.FILE_DOM_CLASS="file_type";
 	this.FILE_DOM_CLASS_DOT="."+this.FILE_DOM_CLASS;
@@ -99,8 +100,24 @@ FileExplorer.prototype.fs_addImportFiles= function(importFilepaths)
 }
 FileExplorer.prototype.IsFileNameOk= function(filename)
 {
-	var re = /\.md$/;
-	return re.test(filename);
+	//return true;
+	var reMd= /\.md$/;
+	var reHtml= /\.html$/;
+	var filenameLittle=filename.toLowerCase();
+	if
+	(
+		reMd.test(filenameLittle)
+		||
+		reHtml.test(filenameLittle)
+	)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
 }
 
 FileExplorer.prototype.RemoveFileBondData= function(dom)
@@ -810,9 +827,10 @@ FileExplorer.prototype.fs_addFile=function(isFolder,fileRealPath)
 	}
 	return ok;
 }
-FileExplorer.prototype.UpdateCurFile= function(currentFile)
+FileExplorer.prototype.UpdateCurFile= function(currentFile,currentFileName)
 {
 	this.currentFile=currentFile;
+	this.currentFileName=currentFileName;
 	$("#currentFile").html(this.currentFile);
 }
 FileExplorer.prototype.fs_openFile = function(fileDom)
@@ -829,7 +847,7 @@ FileExplorer.prototype.fs_openFile = function(fileDom)
 					window.saveEditData();
 				}
 				
-				self.UpdateCurFile(obj.fullpath);
+				self.UpdateCurFile(obj.fullpath,$(fileDom).text());
 				
 				//console.log("the read data is:" +text );
 					//console.log("fs test c");
@@ -1154,7 +1172,7 @@ FileExplorer.prototype.RenameFileOrFolder = function(parentDom,triggerDom,filena
 		 {
 			let endPath=self.currentFile.substring(oldPath.length);
 			let currentFile=PATH.join(newPath,endPath);
-			self.UpdateCurFile(currentFile);			
+			self.UpdateCurFile(currentFile,filename);			
 		 }
 	 }
 	 $(triggerDom).remove();
@@ -1311,6 +1329,9 @@ FileExplorer.prototype.FindTheDomBondData=function(triggerDom){
 
 }
 
-
+FileExplorer.prototype.GetCurrentFileName=function()
+{
+	return this.currentFileName;
+}
 
 module.exports = FileExplorer; 
