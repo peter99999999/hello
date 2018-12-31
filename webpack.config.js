@@ -13,9 +13,10 @@ mode:"development",
 mode:"production", 
 
  */
-var isEletronApp=true;
-var isDebug=true;
-//var isEletronApp=false;
+//var isEletronApp=true;
+//var isDebug=true;
+var isDebug=false;
+var isEletronApp=false;
 if(isEletronApp)
 {
     target='electron-renderer';

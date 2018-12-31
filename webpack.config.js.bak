@@ -13,9 +13,9 @@ mode:"development",
 mode:"production", 
 
  */
-var isEletronApp=true;
+//var isEletronApp=true;
 var isDebug=true;
-//var isEletronApp=false;
+var isEletronApp=false;
 if(isEletronApp)
 {
     target='electron-renderer';
@@ -48,8 +48,7 @@ module.exports = {
      //target: 'electron-renderer',
      target: target,
      //target: 'node',
-     mode:"development",
-     //mode:"production",
+     mode:compileMode,
     entry: {
         index : './src/js/index.js'
     },

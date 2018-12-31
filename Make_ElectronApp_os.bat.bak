@@ -1,0 +1,1 @@
+﻿electron-packager ./%APP_PATH_SRC% md2all --platform=mas --out ./%APP_PATH_TARGET% --arch=x64 --version=0.0.1

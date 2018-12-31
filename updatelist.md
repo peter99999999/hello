@@ -1,3 +1,6 @@
+2018-12-31
+prepare use the github page as the website,and use the :https://garyyan.github.io/gitpage/static/index_bak.html  can access it
+
 2018-11-28
 1:in "common\localstore.js" if find the LOCAL_STORE_PATH  folder don't exist,will mkdir for it
 2:update the  "Make_ElectronApp.bat "to make it more smart 

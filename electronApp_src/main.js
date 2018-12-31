@@ -17,7 +17,7 @@ function createWindow () {
 //mainWindow.loadURL(`https://www.aclickall.com/app/md/index.html`)
 // mainWindow.loadURL(`http://127.0.0.1:8081/index.html`)
   // Open the DevTools.
-   mainWindow.webContents.openDevTools()
+   //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
