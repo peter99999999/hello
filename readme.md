@@ -8,8 +8,11 @@ remind to
 new webpack.DefinePlugin({
             ELECTRON_APP:isEletronApp,
           })
+          
+7:if  use the github page(http://aclickall.github.io),copy the all file under "static" to "githubPage",then run the "githubPage\_git.bat"which push the code to github for update
+          
 
-for java server:
+for java server:(if not use the github page)
 1:copy "static" to "F:\java\WebPrj\*\src\main\resources\static"
 2:update "src\main\java\md2all\HttpHandler.java" the:return "md/index.html?v=2_8_3";
 2: run mvn cmd:mvn package

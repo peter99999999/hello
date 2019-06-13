@@ -1053,9 +1053,9 @@ color:#006064;
   border-bottom-width: 0.08em;
 }
 
-
+/*
 .output_wrapper pre code{font-family: Consolas, Inconsolata, Courier, monospace; display: block !important; white-space: pre !important; word-wrap: normal !important; word-break: normal !important;  overflow: auto !important;} 
 
-/*.output_wrapper pre code *{word-wrap: inherit !important; word-break: inherit !important;white-space: inherit !important;}*/
+.output_wrapper pre code *{word-wrap: inherit !important; word-break: inherit !important;white-space: inherit !important;}*/
 
  

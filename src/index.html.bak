@@ -72,7 +72,7 @@
       </div>
         <div   class="picSettingContainer picSetting">
             <label class="warning">注：如要插入本地图片，先要在七牛云上注册，填写下面信息并“保存”。OK后,插入本地图片会自动上传到七牛云，并正确显示到Md2All中。</label>
-            <a href='https://www.cnblogs.com/garyyan/p/9181809.html'>详细教程,请点击此链接查看</a>
+            <a href='https://www.cnblogs.com/garyyan/p/9181809.html' target="_blank">详细教程,请点击此链接查看</a>
             <div class="picInputInfoItem"><label class="item_name ">	Access Key:</label><input class="accesskey" placeholder="请输入你在七牛的AccessKey"></input></div>
             <div class="picInputInfoItem"><label class="item_name ">Secret Key:</label><input class="secretkey" placeholder="请输入你在七牛的SecretKey"></input></div>
             <div class="picInputInfoItem"><label class="item_name ">Bucket Name:</label><input class="bucketname" placeholder="请输入你在七牛个人的储存空间名称,如:mybucket"></input></div> 
@@ -190,7 +190,7 @@
 </div>
 
 <script>
-
+/*
  var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -198,7 +198,7 @@
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
- 
+*/ 
 
 </script>
  

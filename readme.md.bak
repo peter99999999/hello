@@ -5,6 +5,9 @@ remind to
 4:if report qiniu-js error,use:cnpm install qinui-js --save  to update it
 5:Output is:"static",update the"static/index.html" :<script src="./output/index.js?v=2_8_3"></script>,and copy the "static/index.html" to "static/md/index.html"
 6:whether electron app check by "ELECTRON_APP" in the *.js,and "ELECTRON_APP" declare in "webpack.config.js"
+new webpack.DefinePlugin({
+            ELECTRON_APP:isEletronApp,
+          })
 
 for java server:
 1:copy "static" to "F:\java\WebPrj\*\src\main\resources\static"

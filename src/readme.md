@@ -242,6 +242,7 @@ dart,r,delphi,vb(vbnet),vbs(vbscript),vbscript-html
 ***
 <a id="jump_1">我是页内跳转到的位置</a>
 [^10]: 注脚跳转位置
+:)
 
 
  
