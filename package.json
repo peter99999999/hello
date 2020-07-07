@@ -50,7 +50,7 @@
     "babel-register": "^6.26.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.26.1",
-    "electron": "^1.8.4",
+    "electron": "^9.1.0",
     "electron-packager": "^11.2.0",
     "file-loader": "^1.1.11",
     "is-electron-renderer": "^2.0.1",
